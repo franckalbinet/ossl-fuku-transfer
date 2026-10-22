@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ossl-fuku-transfer"
+dynamic = ["version"]
+description = "Transfer of CNN models of soil MIR spectra from OSSL (Bruker) to Fukushima (Thermo Nicolet) spectra"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+authors = [{name = "Franck Albinet", email = "franckalbinet@gmail.com"}]
+keywords = ['nbdev']
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+]
+dependencies = [
+    'soilspecdl',
+    'soilspecdata>=0.2.2',
+    'soilspectfm',
+]
+
+[project.optional-dependencies]
+dev = ["nbdev>=3.3.24", "ipykernel", "build"]
+
+[project.urls]
+Repository = "https://github.com/franckalbinet/ossl-fuku-transfer"
+Documentation = "https://franckalbinet.github.io/ossl-fuku-transfer/"
+
+[project.entry-points.nbdev]
+ossl_fuku_transfer = "ossl_fuku_transfer._modidx:d"
+
+[tool.setuptools.dynamic]
+version = {attr = "ossl_fuku_transfer.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["ossl_fuku_transfer"]
+
+[tool.nbdev]
+
+[tool.uv.sources]
+soilspecdl = { path = "../soilspecdl", editable = true }
+soilspecdata = { path = "../soilspecdata", editable = true }
+soilspectfm = { path = "../soilspectfm", editable = true }

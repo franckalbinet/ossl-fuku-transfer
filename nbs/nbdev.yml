@@ -1,0 +1,14 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "ossl-fuku-transfer"
+  site-url: "https://franckalbinet.github.io/ossl-fuku-transfer"
+  description: "Transfer of CNN models of soil MIR spectra from OSSL (Bruker) to Fukushima (Thermo Nicolet) spectra"
+  repo-branch: main
+  repo-url: "https://github.com/franckalbinet/ossl-fuku-transfer"
+
+format-links:
+  - html
+  - format: commonmark
+    text: Markdown
