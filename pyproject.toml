@@ -18,10 +18,11 @@ classifiers = [
 dependencies = [
     'soilspecdl',
     'soilspecdata>=0.2.3',
-    'soilspectfm',
+    'soilspectfm>=0.1.2',
     'numpy',
     'pandas',
     'matplotlib',
+    'scikit-learn',
 ]
 
 [project.optional-dependencies]
