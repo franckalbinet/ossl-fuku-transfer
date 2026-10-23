@@ -6,7 +6,8 @@ Docs: https://franckalbinet.github.io/ossl-fuku-transfer/transfer.html.md"""
 
 # %% auto #0
 __all__ = ['model_names', 'preprocessings', 'new_model', 'model_dir', 'pretrain', 'pretrain_history', 'range_check', 'fuku_dls',
-           'test_preds', 'fit_models', 'scores', 'compare', 'summarise', 'plot_preds', 'error_table']
+           'test_preds', 'fit_models', 'scores', 'compare', 'summarise', 'plot_preds', 'error_table', 'fuku_lr_find',
+           'cv_curves', 'cv_final']
 
 # %% ../nbs/02_transfer.ipynb #t0000003
 import copy
@@ -19,7 +20,7 @@ from fastai.layers import NormType
 import fastai.callback.schedule
 from fastai.torch_core import set_seed
 from soilspectfm.preprocessing import SNV, SavitzkyGolay
-from soilspecdl.all import get_spectral_dls, get_splitter, spectral_learner, SpectralCNN, BatchSNV
+from soilspecdl.all import get_spectral_dls, get_splitter, spectral_learner, SpectralCNN, BatchSNV, cross_validate
 from .data import data_path, shared_wns
 
 # %% ../nbs/02_transfer.ipynb #t0000007
@@ -115,8 +116,10 @@ def fit_models(
     seed=0, # Seed for the validation split and the training
     epochs=20, # Training epochs after the first, frozen, epoch of fine-tuning
     lr=1e-3, # Maximum learning rate
+    schedules=None, # Model name: (epochs, maximum learning rate), for 'fully fine-tuned' and 'Fukushima only'
 )->dict: # Model name: test predictions
     "Test predictions of the models in `model_names`"
+    schedules = schedules or {}
     dls, res = fuku_dls(X, y, is_test, seed), {}
     def _fit(learn, fit):
         with learn.no_bar(), learn.no_logging(): fit(learn)
@@ -129,9 +132,11 @@ def fit_models(
     set_seed(seed)
     res['fine-tuned'] = _fit(spectral_learner(dls, copy.deepcopy(pretrained)), lambda l: l.fine_tune(epochs, base_lr=lr))
     set_seed(seed)
-    res['fully fine-tuned'] = _fit(spectral_learner(dls, copy.deepcopy(pretrained)), lambda l: l.fit_one_cycle(epochs + 1, lr_max=lr))
+    ep, lr_ = schedules.get('fully fine-tuned', (epochs + 1, lr))
+    res['fully fine-tuned'] = _fit(spectral_learner(dls, copy.deepcopy(pretrained)), lambda l: l.fit_one_cycle(ep, lr_max=lr_))
     set_seed(seed)
-    res['Fukushima only'] = _fit(spectral_learner(dls, new_model()), lambda l: l.fit_one_cycle(epochs + 1, lr_max=lr))
+    ep, lr_ = schedules.get('Fukushima only', (epochs + 1, lr))
+    res['Fukushima only'] = _fit(spectral_learner(dls, new_model()), lambda l: l.fit_one_cycle(ep, lr_max=lr_))
     return res
 
 # %% ../nbs/02_transfer.ipynb #t0000023
@@ -200,3 +205,44 @@ def error_table(
     seeds = sorted({k[2] for k in preds if k[0] == name})
     err = {m: np.abs(np.mean([preds[name, m, s] for s in seeds], axis=0) - y) for m in models}
     return pd.DataFrame(err).assign(n=1).groupby(np.asarray(labels)).agg({**{m: 'mean' for m in models}, 'n': 'sum'})
+
+# %% ../nbs/02_transfer.ipynb #t0000037
+def fuku_lr_find(
+    model, # Model returned by `pretrain`, or None for random weights
+    X, # Preprocessed Fukushima spectra
+    y, # Targets
+    is_test, # True for the samples of the fixed test set
+    seed=0, # Seed for the validation split
+    show_plot=True, # Plot the loss against the learning rate
+):
+    "Run `lr_find` on the Fukushima training samples"
+    learn = spectral_learner(fuku_dls(X, y, is_test, seed), new_model() if model is None else copy.deepcopy(model))
+    with learn.no_bar(): return learn.lr_find(show_plot=show_plot)
+
+# %% ../nbs/02_transfer.ipynb #t0000039
+def cv_curves(
+    model, # Model returned by `pretrain`, or None for random weights
+    X, # Preprocessed Fukushima spectra
+    y, # Targets
+    is_test, # True for the samples of the fixed test set
+    lr, # Maximum learning rate
+    epochs, # Number of one-cycle epochs
+    fname=None, # File name to cache the results under, without extension
+    n_splits=5, # Number of folds
+    seed=42, # Seed for the folds
+)->pd.DataFrame: # One row per fold and epoch, from `cross_validate`
+    "Cross-validate one-cycle training on the Fukushima training samples"
+    fn = model_dir()/f'{fname}.csv' if fname else None
+    if fn and fn.exists(): return pd.read_csv(fn)
+    model_fn = new_model if model is None else (lambda: copy.deepcopy(model))
+    def fit(learn):
+        with learn.no_bar(), learn.no_logging(): learn.fit_one_cycle(epochs, lr_max=lr)
+    res = cross_validate(X[~is_test], y[~is_test], shared_wns, model_fn, fit, n_splits=n_splits, seed=seed, batch_tfms=[BatchSNV()])
+    if fn: res.to_csv(fn, index=False)
+    return res
+
+def cv_final(res:pd.DataFrame)->dict: # Mean and standard deviation over folds
+    "Validation loss and R² at the last epoch of `cv_curves`, as mean and standard deviation over folds"
+    last = res[res.epoch == res.epoch.max()]
+    return {'valid_loss': last.valid_loss.mean(), 'valid_loss sd': last.valid_loss.std(),
+            'R²': last.r2_score.mean(), 'R² sd': last.r2_score.std()}
