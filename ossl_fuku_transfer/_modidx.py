@@ -5,4 +5,9 @@ d = { 'settings': { 'branch': 'main',
                 'doc_host': 'https://franckalbinet.github.io',
                 'git_url': 'https://github.com/franckalbinet/ossl-fuku-transfer',
                 'lib_path': 'ossl_fuku_transfer'},
-  'syms': {'ossl_fuku_transfer.core': {'ossl_fuku_transfer.core.foo': ('core.html#foo', 'ossl_fuku_transfer/core.py')}}}
+  'syms': { 'ossl_fuku_transfer.data': { 'ossl_fuku_transfer.data.data_path': ('data.html#data_path', 'ossl_fuku_transfer/data.py'),
+                                         'ossl_fuku_transfer.data.fuku_path': ('data.html#fuku_path', 'ossl_fuku_transfer/data.py'),
+                                         'ossl_fuku_transfer.data.load_fuku': ('data.html#load_fuku', 'ossl_fuku_transfer/data.py'),
+                                         'ossl_fuku_transfer.data.load_props': ('data.html#load_props', 'ossl_fuku_transfer/data.py'),
+                                         'ossl_fuku_transfer.data.sample_ids': ('data.html#sample_ids', 'ossl_fuku_transfer/data.py'),
+                                         'ossl_fuku_transfer.data.spa_files': ('data.html#spa_files', 'ossl_fuku_transfer/data.py')}}}

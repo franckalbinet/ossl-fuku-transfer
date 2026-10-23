@@ -17,8 +17,11 @@ classifiers = [
 ]
 dependencies = [
     'soilspecdl',
-    'soilspecdata>=0.2.2',
+    'soilspecdata>=0.2.3',
     'soilspectfm',
+    'numpy',
+    'pandas',
+    'matplotlib',
 ]
 
 [project.optional-dependencies]
@@ -38,6 +41,7 @@ version = {attr = "ossl_fuku_transfer.__version__"}
 include = ["ossl_fuku_transfer"]
 
 [tool.nbdev]
+tst_flags = "notest fukudata"
 
 [tool.uv.sources]
 soilspecdl = { path = "../soilspecdl", editable = true }

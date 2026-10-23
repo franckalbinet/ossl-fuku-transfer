@@ -27,4 +27,4 @@ Clone the four repositories into one folder, then, in `ossl-fuku-transfer/`:
 uv sync --extra dev
 ```
 
-The Fukushima data is not public, and this repository does not contain it.
+The Fukushima data is not public. This repository does not contain it. With access to it, put it in `data/fukushima/` in the workspace folder, beside the project folders, or set `SOILSPEC_DATA` to the folder that holds `fukushima/`. `nbdev-test` skips the cells that read the data. Run `nbdev-test --flags fukudata` to include them.
