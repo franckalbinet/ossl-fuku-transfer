@@ -6,7 +6,7 @@ Docs: https://franckalbinet.github.io/ossl-fuku-transfer/data.html.md"""
 
 # %% auto #0
 __all__ = ['mg_k2o_per_cmolc', 'excluded', 'shared_wns', 'data_path', 'fuku_path', 'load_props', 'spa_files', 'sample_ids',
-           'cs137_split', 'sample_batches', 'load_fuku']
+           'cs137_split', 'sample_batches', 'bruker_files', 'load_bruker', 'load_fuku']
 
 # %% ../nbs/00_data.ipynb #f1a00003
 import os, re
@@ -74,6 +74,33 @@ def sample_batches(
     files = spa_files()
     dirs = sorted({fs[0].parent.name for fs in files.values()})
     return np.array([f'batch {dirs.index(files[i][0].parent.name) + 1}' for i in ids])
+
+# %% ../nbs/00_data.ipynb #f1a00039
+def bruker_files()->dict: # Sample ID: CSV files of its replicates
+    "The CSV exports of the Bruker spectra of the Fukushima soil samples, by sample ID"
+    res = {}
+    for f in sorted((fuku_path()/'MIRS_rawData'/'Bruker'/'csv'/'FukushimaSoil').glob('*.csv')):
+        m = re.match(r'^(\d+)(?:_\d|[a-d])\.csv$', f.name)
+        if m: res.setdefault(m[1], []).append(f)
+    return res
+
+def load_bruker(
+    wns, # Wavenumbers to interpolate onto, in cm⁻¹, in increasing order
+    ids=None, # Sample IDs to load; defaults to every sample in `bruker_files()`
+)->Spectra: # One spectrum per sample, with the soil properties in `source`
+    "Load the Bruker spectra, averaging the replicates of each sample"
+    files, wns = bruker_files(), np.asarray(wns)
+    ids = sorted(files, key=int) if ids is None else list(ids)
+    spectra = []
+    for i in ids:
+        reps = []
+        for f in files[i]:
+            d = pd.read_csv(f).sort_values('wavenumber')
+            x = d.wavenumber.to_numpy()
+            if wns[0] < x[0] or wns[-1] > x[-1]: raise ValueError(f"{f.name} covers {x[0]:.2f}–{x[-1]:.2f} cm⁻¹, which does not include `wns`")
+            reps.append(np.interp(wns, x, d.absorbance.to_numpy()))
+        spectra.append(np.mean(reps, axis=0))
+    return Spectra(wavenumbers=wns, spectra=np.stack(spectra), measurement_type='abs', sample_ids=np.array(ids), source=load_props())
 
 # %% ../nbs/00_data.ipynb #f1a00021
 shared_wns = np.arange(650, 3999, 2) # Wavenumbers that OSSL and every Fukushima batch cover, in cm⁻¹
