@@ -6,8 +6,8 @@ Docs: https://franckalbinet.github.io/ossl-fuku-transfer/transfer.html.md"""
 
 # %% auto #0
 __all__ = ['model_names', 'preprocessings', 'new_model', 'model_dir', 'pretrain', 'pretrain_history', 'range_check', 'fuku_dls',
-           'test_preds', 'fit_models', 'scores', 'compare', 'summarise', 'plot_preds', 'error_table', 'fuku_lr_find',
-           'cv_curves', 'cv_final']
+           'test_preds', 'adabn', 'fit_models', 'scores', 'compare', 'summarise', 'plot_preds', 'error_table',
+           'fuku_lr_find', 'cv_curves', 'cv_final']
 
 # %% ../nbs/02_transfer.ipynb #t0000003
 import copy
@@ -105,8 +105,22 @@ def test_preds(learn)->np.ndarray: # One prediction per test sample
     with learn.no_bar(): p, _ = learn.get_preds(dl=learn.dls.test_dl(learn.dls.test_idx.tolist(), with_labels=True))
     return p.numpy().ravel()
 
+# %% ../nbs/02_transfer.ipynb #t0000042
+def adabn(
+    model, # Model returned by `pretrain`
+    dls, # `DataLoaders` from `fuku_dls`
+):
+    "Copy of `model` whose BatchNorm running statistics are recomputed from the training and validation spectra of `dls`"
+    m = copy.deepcopy(model).to(dls.device).eval()
+    bns = [l for l in m.modules() if isinstance(l, torch.nn.modules.batchnorm._BatchNorm)]
+    for bn in bns: bn.reset_running_stats(); bn.momentum = None; bn.train()
+    with torch.no_grad():
+        for dl in (dls.train.new(shuffle=False, drop_last=False), dls.valid):
+            for xb, _ in dl: m(xb)
+    return m.eval()
+
 # %% ../nbs/02_transfer.ipynb #t0000019
-model_names = ('zero-shot', 'head only', 'fine-tuned', 'fully fine-tuned', 'Fukushima only') # Models that `fit_models` trains
+model_names = ('zero-shot', 'zero-shot AdaBN', 'head only', 'fine-tuned', 'fully fine-tuned', 'Fukushima only') # Models that `fit_models` trains
 
 def fit_models(
     pretrained, # Model returned by `pretrain`
@@ -125,6 +139,7 @@ def fit_models(
         with learn.no_bar(), learn.no_logging(): fit(learn)
         return test_preds(learn)
     res['zero-shot'] = test_preds(spectral_learner(dls, copy.deepcopy(pretrained)))
+    res['zero-shot AdaBN'] = test_preds(spectral_learner(dls, adabn(pretrained, dls)))
     set_seed(seed)
     learn = spectral_learner(dls, copy.deepcopy(pretrained), train_bn=False)
     learn.freeze()
@@ -199,7 +214,7 @@ def error_table(
     y, # Observed test targets
     labels, # Group label of each test sample, such as its soil type
     name, # Preprocessing to report
-    models=model_names[1:], # Models to report
+    models=model_names[2:], # Models to report
 )->pd.DataFrame: # One row per group: mean absolute error of each model, and sample count
     "Mean absolute error of the seed-averaged predictions of each model, by group"
     seeds = sorted({k[2] for k in preds if k[0] == name})
