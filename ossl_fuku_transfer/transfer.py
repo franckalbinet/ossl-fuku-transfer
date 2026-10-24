@@ -7,7 +7,7 @@ Docs: https://franckalbinet.github.io/ossl-fuku-transfer/transfer.html.md"""
 # %% auto #0
 __all__ = ['model_names', 'preprocessings', 'new_model', 'model_dir', 'pretrain', 'load_pretrained', 'pretrain_history',
            'range_check', 'fuku_dls', 'test_preds', 'predict', 'adabn', 'fit_models', 'scores', 'compare', 'summarise',
-           'plot_preds', 'error_table', 'fuku_lr_find', 'cv_curves', 'cv_final']
+           'plot_preds', 'error_table', 'fuku_lr_find', 'cv_curves', 'cv_final', 'joint_dls', 'fit_joint']
 
 # %% ../nbs/02_transfer.ipynb #t0000003
 import copy
@@ -280,3 +280,46 @@ def cv_final(res:pd.DataFrame)->dict: # Mean and standard deviation over folds
     last = res[res.epoch == res.epoch.max()]
     return {'valid_loss': last.valid_loss.mean(), 'valid_loss sd': last.valid_loss.std(),
             'R²': last.r2_score.mean(), 'R² sd': last.r2_score.std()}
+
+# %% ../nbs/02_transfer.ipynb #t0000050
+def joint_dls(
+    Xo, # Preprocessed OSSL spectra
+    yo, # OSSL targets
+    Xf, # Preprocessed Fukushima spectra
+    yf, # Fukushima targets
+    is_test, # True for the Fukushima samples of the fixed test set
+    share=0.25, # Target share of Fukushima samples in the training set
+    seed=0, # Seed for choosing the Fukushima validation samples
+    valid_pct=0.1, # Share of the Fukushima training samples used for validation
+):
+    "`DataLoaders` training on OSSL and Fukushima together, validating and testing on Fukushima"
+    n_o, f_idx = len(Xo), np.flatnonzero(~is_test)
+    np.random.RandomState(seed).shuffle(f_idx)
+    n_valid = int(len(f_idx) * valid_pct)
+    f_valid, f_train = f_idx[:n_valid] + n_o, f_idx[n_valid:] + n_o
+    reps = max(1, round(share * n_o / ((1 - share) * len(f_train))))
+    train_idx = np.concatenate([np.arange(n_o), np.tile(f_train, reps)])
+    test_idx = np.flatnonzero(is_test) + n_o
+    split = lambda X, y: (train_idx, f_valid, test_idx)
+    dls = get_spectral_dls(np.concatenate([Xo, Xf]), np.concatenate([yo, yf]), shared_wns, splitter=split, batch_tfms=[BatchSNV()])[0]
+    dls.test_idx, dls.reps = test_idx, reps
+    return dls
+
+# %% ../nbs/02_transfer.ipynb #t0000053
+def fit_joint(
+    Xo, yo, Xf, yf, is_test, # As in `joint_dls`
+    share=0.25, # Target share of Fukushima samples in the training set
+    seed=0, # Seed for the validation split and the training
+    epochs=20, # Number of one-cycle epochs
+    lr=1e-3, # Maximum learning rate
+    fname=None, # File name to cache the test predictions under, without extension
+)->np.ndarray: # One prediction per Fukushima test sample
+    "Train `new_model` from random weights on OSSL and Fukushima together, and predict the Fukushima test set"
+    fn = model_dir()/f'{fname}.npy' if fname else None
+    if fn and fn.exists(): return np.load(fn)
+    set_seed(seed)
+    learn = spectral_learner(joint_dls(Xo, yo, Xf, yf, is_test, share, seed), new_model())
+    with learn.no_bar(), learn.no_logging(): learn.fit_one_cycle(epochs, lr_max=lr)
+    p = test_preds(learn)
+    if fn: np.save(fn, p)
+    return p
