@@ -7,7 +7,8 @@ Docs: https://franckalbinet.github.io/ossl-fuku-transfer/transfer.html.md"""
 # %% auto #0
 __all__ = ['model_names', 'preprocessings', 'new_model', 'model_dir', 'pretrain', 'load_pretrained', 'pretrain_history',
            'range_check', 'fuku_dls', 'test_preds', 'predict', 'adabn', 'fit_models', 'scores', 'compare', 'summarise',
-           'plot_preds', 'error_table', 'fuku_lr_find', 'cv_curves', 'cv_final', 'joint_dls', 'fit_joint']
+           'plot_preds', 'error_table', 'fuku_lr_find', 'cv_curves', 'cv_final', 'joint_dls', 'fit_joint',
+           'subset_preds']
 
 # %% ../nbs/02_transfer.ipynb #t0000003
 import copy
@@ -323,3 +324,23 @@ def fit_joint(
     p = test_preds(learn)
     if fn: np.save(fn, p)
     return p
+
+# %% ../nbs/02_transfer.ipynb #t0000057
+def subset_preds(
+    model, # Starting model, such as one returned by `pretrain`; random weights if None
+    X, # Preprocessed Fukushima spectra
+    y, # Targets
+    is_test, # True for the samples of the fixed test set
+    n, # Number of training samples to draw
+    seed=0, # Seed for drawing the samples, the validation split and the training
+    epochs=20, # Number of one-cycle epochs
+    lr=1e-3, # Maximum learning rate
+)->np.ndarray: # One prediction per test sample
+    "Test predictions of a CNN trained on `n` random training samples"
+    sub = np.random.RandomState(seed).choice(np.flatnonzero(~is_test), n, replace=False)
+    idx = np.concatenate([sub, np.flatnonzero(is_test)])
+    dls = fuku_dls(X[idx], y[idx], is_test[idx], seed)
+    set_seed(seed)
+    learn = spectral_learner(dls, new_model() if model is None else copy.deepcopy(model))
+    with learn.no_bar(), learn.no_logging(): learn.fit_one_cycle(epochs, lr_max=lr)
+    return test_preds(learn)
