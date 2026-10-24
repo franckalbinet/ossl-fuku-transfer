@@ -6,9 +6,9 @@ Docs: https://franckalbinet.github.io/ossl-fuku-transfer/transfer.html.md"""
 
 # %% auto #0
 __all__ = ['model_names', 'preprocessings', 'new_model', 'model_dir', 'pretrain', 'load_pretrained', 'pretrain_history',
-           'range_check', 'fuku_dls', 'test_preds', 'predict', 'adabn', 'fit_models', 'scores', 'compare', 'summarise',
-           'plot_preds', 'error_table', 'fuku_lr_find', 'cv_curves', 'cv_final', 'joint_dls', 'fit_joint',
-           'subset_preds']
+           'range_check', 'fuku_dls', 'test_preds', 'predict', 'adabn', 'fit_models', 'scores', 'plain_scores',
+           'compare', 'summarise', 'plot_preds', 'error_table', 'fuku_lr_find', 'cv_curves', 'cv_final', 'joint_dls',
+           'fit_joint', 'subset_preds']
 
 # %% ../nbs/02_transfer.ipynb #t0000003
 import copy
@@ -181,6 +181,15 @@ def scores(
 )->dict: # R² and correlation of the targets, RMSE and bias of the property
     "R² and correlation `r` of `log1p` targets, and the RMSE and bias of the property itself"
     err = np.expm1(p) - np.expm1(y)
+    return {'R²': r2_score(y, p), 'r': np.corrcoef(y, p)[0, 1], 'RMSE': np.sqrt((err**2).mean()), 'bias': err.mean()}
+
+# %% ../nbs/02_transfer.ipynb #t0000060
+def plain_scores(
+    y, # Observed targets
+    p, # Predicted targets
+)->dict: # R², correlation, RMSE and bias of the targets
+    "R², correlation `r`, RMSE and bias of targets on their own scale"
+    err = p - y
     return {'R²': r2_score(y, p), 'r': np.corrcoef(y, p)[0, 1], 'RMSE': np.sqrt((err**2).mean()), 'bias': err.mean()}
 
 # %% ../nbs/02_transfer.ipynb #t0000026
