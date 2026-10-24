@@ -327,7 +327,7 @@ def fit_joint(
 
 # %% ../nbs/02_transfer.ipynb #t0000057
 def subset_preds(
-    model, # Starting model, such as one returned by `pretrain`; random weights if None
+    model, # Starting model, such as one returned by `pretrain`; random weights if None; or a function of the training indices that returns one
     X, # Preprocessed Fukushima spectra
     y, # Targets
     is_test, # True for the samples of the fixed test set
@@ -341,6 +341,9 @@ def subset_preds(
     idx = np.concatenate([sub, np.flatnonzero(is_test)])
     dls = fuku_dls(X[idx], y[idx], is_test[idx], seed)
     set_seed(seed)
-    learn = spectral_learner(dls, new_model() if model is None else copy.deepcopy(model))
+    if model is None: m = new_model()
+    elif isinstance(model, torch.nn.Module): m = copy.deepcopy(model)
+    else: m = model(sub)
+    learn = spectral_learner(dls, m)
     with learn.no_bar(), learn.no_logging(): learn.fit_one_cycle(epochs, lr_max=lr)
     return test_preds(learn)

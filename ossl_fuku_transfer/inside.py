@@ -71,10 +71,11 @@ def probe(
     F_test, # Features of the test samples
     y_test, # Targets of the test samples
     alphas=np.logspace(-1, 6, 15), # Ridge penalties to choose from
-)->dict: # `scores` on the test samples, and the chosen penalty
+    score_fn=scores, # Function of observed and predicted targets returning a dict of scores
+)->dict: # `score_fn` on the test samples, and the chosen penalty
     "Test scores of a ridge regression from `F_train` to `y_train`"
     pipe = make_pipeline(StandardScaler(), RidgeCV(alphas=alphas)).fit(F_train, y_train)
-    return {**scores(y_test, pipe.predict(F_test)), 'alpha': pipe[-1].alpha_}
+    return {**score_fn(y_test, pipe.predict(F_test)), 'alpha': pipe[-1].alpha_}
 
 # %% ../nbs/07_inside_transfer.ipynb #i0000028
 def tracked_model(fname):
