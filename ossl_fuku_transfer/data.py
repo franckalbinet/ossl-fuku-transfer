@@ -7,14 +7,14 @@ Docs: https://franckalbinet.github.io/ossl-fuku-transfer/data.html.md"""
 # %% auto #0
 __all__ = ['mg_k2o_per_cmolc', 'excluded', 'mg_mgo_per_cmolc', 'mg_cao_per_cmolc', 'shared_props', 'shared_wns', 'data_path',
            'fuku_path', 'load_props', 'spa_files', 'sample_ids', 'cs137_split', 'sample_batches', 'fuku_shared_props',
-           'ossl_shared_props', 'prop_features', 'bruker_files', 'load_bruker', 'load_fuku']
+           'ossl_shared_props', 'prop_features', 'bruker_files', 'load_bruker', 'load_fuku', 'load_replicates']
 
 # %% ../nbs/00_data.ipynb #f1a00003
 import os, re
 from pathlib import Path
 import numpy as np, pandas as pd
 import ossl_fuku_transfer
-from soilspecdata.readers import load_spa
+from soilspecdata.readers import load_spa, read_spa
 from soilspecdata.types import Spectra
 
 # %% ../nbs/00_data.ipynb #f1a00007
@@ -146,5 +146,23 @@ def load_fuku(
     files = spa_files()
     ids = sample_ids() if ids is None else ids
     res = load_spa([f for i in ids for f in files[i]], wns)
+    res.source = load_props()
+    return res
+
+# %% ../nbs/00_data.ipynb #f1a00048
+def load_replicates(
+    wns=shared_wns, # Wavenumbers to interpolate onto, in cm⁻¹, in increasing order
+    ids=None, # Sample IDs to load; defaults to `sample_ids()`
+)->Spectra: # One spectrum per `.spa` file, with the soil properties in `source`
+    "Load every replicate of the Fukushima samples as its own spectrum"
+    files, wns = spa_files(), np.asarray(wns)
+    ids = sample_ids() if ids is None else ids
+    rows, sids = [], []
+    for i in ids:
+        for f in files[i]:
+            x, vals, mtype = read_spa(f)
+            rows.append(np.interp(wns, x, vals))
+            sids.append(i)
+    res = Spectra(wavenumbers=wns, spectra=np.stack(rows), measurement_type=mtype, sample_ids=np.array(sids))
     res.source = load_props()
     return res
