@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ossl-fuku-transfer"
 dynamic = ["version"]
-description = "Transfer of CNN models of soil MIR spectra from OSSL (Bruker) to Fukushima (Thermo Nicolet) spectra"
+description = "Test whether OSSL-trained MIR models help predict Fukushima soil properties"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "Apache-2.0"
@@ -43,6 +43,8 @@ include = ["ossl_fuku_transfer"]
 
 [tool.nbdev]
 tst_flags = "notest fukudata"
+custom_sidebar = true
+title = 'OSSL to Fukushima transfer'
 
 [tool.uv.sources]
 soilspecdl = { path = "../soilspecdl", editable = true }

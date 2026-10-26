@@ -1,0 +1,38 @@
+website:
+  sidebar:
+    contents:
+      - text: "Overview"
+        href: index.ipynb
+      - section: "Data and spectra"
+        contents:
+          - 00_data.ipynb
+          - 01_pca.ipynb
+      - section: "Kex and CEC"
+        contents:
+          - 02_transfer.ipynb
+          - 03_kex.ipynb
+          - 04_cec.ipynb
+          - 08_learning_curve.ipynb
+          - 09_block4.ipynb
+      - section: "Inside the CNN"
+        contents:
+          - 06_dynamics.ipynb
+          - 07_inside_transfer.ipynb
+          - 17_importance.ipynb
+      - section: "Why the transfer is limited"
+        contents:
+          - 05_paired.ipynb
+          - 12_wetchem.ipynb
+          - 13_epo.ipynb
+          - 14_augment.ipynb
+          - 15_vapour.ipynb
+          - 16_moisture.ipynb
+          - 18_aloh.ipynb
+      - section: "Cs-137 ratio"
+        contents:
+          - 10_cs137.ipynb
+          - 11_multitask.ipynb
+          - 19_cs137_inside.ipynb
+      - section: "Scores on new fields"
+        contents:
+          - 20_grouped_cv.ipynb
