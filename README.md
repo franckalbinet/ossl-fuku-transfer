@@ -29,6 +29,8 @@ In Fukushima’s Lowland soils, the sharp clay-mineral bands near 3620 and 3695 
 
 On new fields, Kex can hardly be predicted within paddy fields. Ridge regression on the spectra gives R² -0.03 in paddy fields and 0.20 in upland fields. Paddy fields hold 880 of the 1,388 samples with Kex.
 
+For the decision that remediation makes, Kex models do not yet replace lab tests in paddy fields. To catch 90% of the paddy samples below 25 mg K2O per 100 g, the models must flag 84 to 86% of all paddy samples. On 2019 and 2020, for fields sampled in earlier years, the spectra rank samples no better than field type alone. The share of paddy samples below the threshold fell from 76% in 2013 to 34% in 2015 and rose to 57% by 2020, which fits K fertiliser driving paddy Kex.
+
 ## Notebooks
 
 ### Data and spectra
@@ -81,6 +83,7 @@ On new fields, Kex can hardly be predicted within paddy fields. Ridge regression
 | Notebook | Question | Answer |
 |----|----|----|
 | [`20_grouped_cv`](https://franckalbinet.github.io/ossl-fuku-transfer/grouped_cv.html) | How well do the models predict fields they have never seen, by soil type and field type? | R² drops by 0.05 to 0.13. For Kex, OSSL features add nothing. For the Cs-137 ratio they add 0.05 R². Within paddy fields, Kex can hardly be predicted. |
+| [`21_threshold`](https://franckalbinet.github.io/ossl-fuku-transfer/threshold.html) | Can the Kex models flag the samples below the K2O level that remediation targets? | Not in paddy fields. To catch 90% of the paddy samples below 25 mg K2O per 100 g, they must flag 84 to 86% of all paddy samples. On later years of known fields, the spectra do no better than field type. |
 
 ## Questions for the Fukushima data team
 
@@ -93,6 +96,7 @@ On new fields, Kex can hardly be predicted within paddy fields. Ridge regression
 7.  Sample preparation: how were the samples dried, ground and, if at all, diluted for each instrument? Did the Bruker and Thermo scans of the paired soils use the same prepared material? The answers decide which spectral corrections are realistic.
 8.  Instruments: which accessory, resolution and purging did the Thermo Nicolet use? Which Bruker instrument and accessory measured the paired soils?
 9.  Doubtful scans: `00_data` leaves out 12 samples whose scans disagree between operators or between file exports. Which scans are right? The answer can bring these samples back.
+10. K threshold: which exchangeable K2O level do remediation decisions use, and does it differ between paddy and upland fields? `21_threshold` assumes 25 mg K2O per 100 g of dry soil for every field.
 
 ## Set-up
 
