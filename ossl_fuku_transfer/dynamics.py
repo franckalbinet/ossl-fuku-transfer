@@ -15,7 +15,7 @@ import numpy as np, pandas as pd, torch
 from fastai.callback.core import Callback
 from fastai.callback.hook import ActivationStats
 import fastai.callback.schedule
-from soilspecdl.all import spectral_learner, BatchSNV, TensorSpectrum
+from soilspecdl.all import spectral_learner, BatchSNV, TensorSpectrum, SpectralCNN
 from .data import shared_wns
 from .transfer import model_dir
 

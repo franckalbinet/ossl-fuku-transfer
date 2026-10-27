@@ -16,7 +16,7 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
 ]
 dependencies = [
-    'soilspecdl',
+    'soilspecdl>=0.3.0',
     'soilspecdata>=0.2.3',
     'soilspectfm>=0.1.2',
     'numpy',

@@ -15,7 +15,8 @@ from sklearn.linear_model import RidgeCV
 from sklearn.neighbors import NearestNeighbors
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
-from .transfer import new_model, model_dir, scores
+from soilspecdl.all import SpectralCNN
+from .transfer import model_dir, scores
 from .dynamics import block_acts
 
 # %% ../nbs/07_inside_transfer.ipynb #i0000008
@@ -79,7 +80,7 @@ def probe(
 
 # %% ../nbs/07_inside_transfer.ipynb #i0000028
 def tracked_model(fname):
-    "`new_model` with the final weights of the `tracked_fit` record saved under `fname`"
-    model = new_model()
+    "`SpectralCNN` with the final weights of the `tracked_fit` record saved under `fname`"
+    model = SpectralCNN()
     model.load_state_dict(pickle.loads((model_dir()/f'{fname}.pkl').read_bytes())['state'])
     return model

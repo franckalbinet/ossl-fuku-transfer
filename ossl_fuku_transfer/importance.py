@@ -10,9 +10,8 @@ __all__ = ['integrated_gradients', 'occlusion', 'region_shares']
 # %% ../nbs/17_importance.ipynb #g0000003
 import copy
 import numpy as np, pandas as pd, torch
-from soilspecdl.all import BatchSNV, TensorSpectrum
+from soilspecdl.all import BatchSNV, TensorSpectrum, predict
 from .data import shared_wns
-from .transfer import predict
 
 # %% ../nbs/17_importance.ipynb #g0000008
 def integrated_gradients(
@@ -40,12 +39,12 @@ def occlusion(
     width=20, # Window width, in points
 )->pd.DataFrame: # One row per window: its centre wavenumber and the rise in mean squared error
     "Rise in mean squared error of `model` when each window of `width` points of `X` is set to zero"
-    base = ((predict(model, X) - y)**2).mean()
+    base = ((predict(model, X, shared_wns) - y)**2).mean()
     rows = []
     for j in range(0, X.shape[1], width):
         Xo = X.copy()
         Xo[:, j:j+width] = 0
-        rows.append({'wavenumber': shared_wns[j:j+width].mean(), 'rise in MSE': ((predict(model, Xo) - y)**2).mean() - base})
+        rows.append({'wavenumber': shared_wns[j:j+width].mean(), 'rise in MSE': ((predict(model, Xo, shared_wns) - y)**2).mean() - base})
     return pd.DataFrame(rows)
 
 # %% ../nbs/17_importance.ipynb #g0000014

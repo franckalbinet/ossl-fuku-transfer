@@ -15,9 +15,9 @@ from scipy.signal import savgol_filter
 from fasttransform import Transform
 from fastai.torch_core import set_seed, retain_type
 import fastai.callback.schedule
-from soilspecdl.all import get_spectral_dls, get_splitter, spectral_learner, BatchSNV, TensorSpectrum
+from soilspecdl.all import get_spectral_dls, get_splitter, spectral_learner, BatchSNV, TensorSpectrum, SpectralCNN
 from .data import shared_wns
-from .transfer import new_model, model_dir, load_pretrained
+from .transfer import model_dir, load_pretrained
 
 # %% ../nbs/14_augment.ipynb #a0000008
 class SNVDeriv(Transform):
@@ -79,13 +79,13 @@ def pretrain_aug(
     epochs=20, # Number of one-cycle epochs
     lr=1e-3, # Maximum learning rate
 ):
-    "Train `new_model` on augmented spectra, or load the weights that an earlier run saved under `fname`"
+    "Train `SpectralCNN` on augmented spectra, or load the weights that an earlier run saved under `fname`"
     fn = model_dir()/f'{fname}.pth'
     if not fn.exists():
         set_seed(seed)
         tfms = ([aug] if aug else []) + [SNVDeriv(X.shape[1]), BatchSNV()]
         dls, _ = get_spectral_dls(X, y, shared_wns, splitter=get_splitter(0.9, 0.1, seed=seed), batch_tfms=tfms)
-        learn = spectral_learner(dls, new_model())
+        learn = spectral_learner(dls, SpectralCNN())
         with learn.no_bar(), learn.no_logging(): learn.fit_one_cycle(epochs, lr_max=lr)
         torch.save(learn.model.state_dict(), fn)
         pd.DataFrame(learn.recorder.values, columns=learn.recorder.metric_names[1:-1]).to_csv(fn.with_suffix('.csv'), index_label='epoch')

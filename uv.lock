@@ -4535,6 +4535,8 @@ dependencies = [
     { name = "pandas", version = "2.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "pandas", version = "3.1.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "plum-dispatch" },
+    { name = "scikit-learn", version = "1.7.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "scikit-learn", version = "1.9.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "soilspecdata" },
     { name = "soilspectfm" },
 ]
@@ -4550,6 +4552,7 @@ requires-dist = [
     { name = "nbdev", marker = "extra == 'dev'", specifier = ">=3.3.24" },
     { name = "pandas" },
     { name = "plum-dispatch", specifier = ">=2.9.0" },
+    { name = "scikit-learn" },
     { name = "soilspecdata", specifier = ">=0.2.1" },
     { name = "soilspectfm", specifier = ">=0.1.1" },
     { name = "twine", marker = "extra == 'dev'" },

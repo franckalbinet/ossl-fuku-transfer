@@ -12,9 +12,9 @@ import numpy as np, pandas as pd, torch
 from torch.nn import Linear
 from fastai.torch_core import set_seed
 import fastai.callback.schedule
-from soilspecdl.all import get_spectral_dls, get_splitter, spectral_learner, BatchSNV
+from soilspecdl.all import get_spectral_dls, get_splitter, spectral_learner, BatchSNV, SpectralCNN
 from .data import shared_wns
-from .transfer import new_model, model_dir
+from .transfer import model_dir
 
 # %% ../nbs/11_multitask.ipynb #m0000008
 mt_tasks = { # OSSL column: True if the task takes `log1p` of the property
@@ -49,8 +49,8 @@ def masked_mse(
 def mt_model(
     n_tasks, # Number of outputs
 ):
-    "`new_model` with a head of `n_tasks` outputs"
-    m = new_model()
+    "`SpectralCNN` with a head of `n_tasks` outputs"
+    m = SpectralCNN()
     m.head[-1] = Linear(m.head[-1].in_features, n_tasks)
     return m
 
