@@ -36,4 +36,3 @@ website:
       - section: "Scores on new fields"
         contents:
           - 20_grouped_cv.ipynb
-          - 21_threshold.ipynb
