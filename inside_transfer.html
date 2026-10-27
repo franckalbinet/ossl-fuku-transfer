@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Compare the layers of the pretrained, fully fine-tuned and Fukushima-only Kex models: how alike their representations are, how far Fukushima spectra sit from OSSL in each layer, how the Bruker and Thermo spectra of the same soils compare, and how much Kex information each layer holds">
+
+<title>Inside transfer – OSSL to Fukushima transfer</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4a0132d6516ed1437d66c2742ecec8d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Inside transfer – OSSL to Fukushima transfer">
+<meta property="og:description" content="Compare the layers of the pretrained, fully fine-tuned and Fukushima-only Kex models: how alike their representations are, how far Fukushima spectra sit from OSSL in each layer, how the Bruker and Thermo spectra of the same soils compare, and how much Kex information each layer holds">
+<meta property="og:image" content="https://franckalbinet.github.io/ossl-fuku-transfer/07_inside_transfer_files/figure-html/cell-17-output-1.png">
+<meta property="og:site_name" content="OSSL to Fukushima transfer">
+<meta property="og:image:height" content="723">
+<meta property="og:image:width" content="2223">
+<meta name="twitter:title" content="Inside transfer – OSSL to Fukushima transfer">
+<meta name="twitter:description" content="Compare the layers of the pretrained, fully fine-tuned and Fukushima-only Kex models: how alike their representations are, how far Fukushima spectra sit from OSSL in each layer, how the Bruker and Thermo spectra of the same soils compare, and how much Kex information each layer holds">
+<meta name="twitter:image" content="https://franckalbinet.github.io/ossl-fuku-transfer/07_inside_transfer_files/figure-html/cell-17-output-1.png">
+<meta name="twitter:image-height" content="723">
+<meta name="twitter:image-width" content="2223">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">OSSL to Fukushima transfer</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dynamics.html">Inside the CNN</a></li><li class="breadcrumb-item"><a href="./inside_transfer.html">Inside transfer</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data and spectra</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fukushima data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OSSL and Fukushima spectra</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Kex and CEC</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./transfer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transfer experiments</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./kex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kex</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cec.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CEC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./learning_curve.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Learning curve</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./block4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Block 4 transfer</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Inside the CNN</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dynamics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Training dynamics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inside_transfer.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Inside transfer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./importance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wavenumber importance</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Why the transfer is limited</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./paired.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Paired spectra</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./wetchem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wet chemistry</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EPO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./augment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Augmentation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vapour.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Water vapour</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./moisture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sample moisture</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./aloh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Al–OH band</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Cs-137 ratio</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cs137.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cs-137 ratio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multitask.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multi-task pretraining</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cs137_inside.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inside the Cs-137 models</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Scores on new fields</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./grouped_cv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grouped cross-validation by field</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#layer-features" id="toc-layer-features" class="nav-link active" data-scroll-target="#layer-features">Layer features</a></li>
+  <li><a href="#similarity" id="toc-similarity" class="nav-link" data-scroll-target="#similarity">Similarity</a></li>
+  <li><a href="#distance-from-a-reference-set" id="toc-distance-from-a-reference-set" class="nav-link" data-scroll-target="#distance-from-a-reference-set">Distance from a reference set</a></li>
+  <li><a href="#probes" id="toc-probes" class="nav-link" data-scroll-target="#probes">Probes</a></li>
+  <li><a href="#data-and-models" id="toc-data-and-models" class="nav-link" data-scroll-target="#data-and-models">Data and models</a></li>
+  <li><a href="#how-alike-the-models-are" id="toc-how-alike-the-models-are" class="nav-link" data-scroll-target="#how-alike-the-models-are">How alike the models are</a></li>
+  <li><a href="#distance-from-ossl" id="toc-distance-from-ossl" class="nav-link" data-scroll-target="#distance-from-ossl">Distance from OSSL</a></li>
+  <li><a href="#bruker-and-thermo-spectra-of-the-same-soils" id="toc-bruker-and-thermo-spectra-of-the-same-soils" class="nav-link" data-scroll-target="#bruker-and-thermo-spectra-of-the-same-soils">Bruker and Thermo spectra of the same soils</a></li>
+  <li><a href="#kex-in-each-layer" id="toc-kex-in-each-layer" class="nav-link" data-scroll-target="#kex-in-each-layer">Kex in each layer</a></li>
+  <li><a href="#findings" id="toc-findings" class="nav-link" data-scroll-target="#findings">Findings</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/franckalbinet/ossl-fuku-transfer/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="inside_transfer.html.md"><i class="bi bi-file-code"></i>Markdown</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dynamics.html">Inside the CNN</a></li><li class="breadcrumb-item"><a href="./inside_transfer.html">Inside transfer</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Inside transfer</h1>
+</div>
+
+<div>
+  <div class="description">
+    Compare the layers of the pretrained, fully fine-tuned and Fukushima-only Kex models: how alike their representations are, how far Fukushima spectra sit from OSSL in each layer, how the Bruker and Thermo spectra of the same soils compare, and how much Kex information each layer holds
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div id="i0000004" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-27T21:42:39.599000+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-27T21:42:39.600212+00:00&quot;,&quot;total&quot;:0.0012164919999975154}}" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastcore.test <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> soilspecdata.<span class="bu">all</span> <span class="im">import</span> load_ossl</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.torch_core <span class="im">import</span> set_seed</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> soilspecdl.<span class="bu">all</span> <span class="im">import</span> get_splitter, BatchSNV, TensorSpectrum, SpectralCNN, predict</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ossl_fuku_transfer.data <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ossl_fuku_transfer.transfer <span class="im">import</span> <span class="op">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The module part uses small random arrays, so it runs without the data. The sections from <em>Data and models</em> onwards read OSSL and the Fukushima data, and are marked <code>#| fukudata</code>.</p>
+<section id="layer-features" class="level2">
+<h2 class="anchored" data-anchor-id="layer-features">Layer features</h2>
+<p><code>layer_features</code> gives the representation of spectra at each layer of a model, one row per spectrum:</p>
+<ul>
+<li><code>input</code>: the preprocessed spectrum;</li>
+<li><code>block 1</code> to <code>block 5</code>: each block’s output after pooling, with channels and positions flattened, so band position is kept;</li>
+<li><code>pooled</code>: the global average over positions of block 5, the 256 features the head sees.</li>
+</ul>
+<div id="f6d46587" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-27T21:42:39.602604+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-27T21:42:39.607780+00:00&quot;,&quot;total&quot;:0.005180880000011712}}" data-execution_count="4">
+<hr>
+<section id="layer_features" class="level3">
+<h3 class="anchored" data-anchor-id="layer_features">layer_features</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> layer_features(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    model, <span class="co"># Trained `SpectralCNN`</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    X, <span class="co"># Preprocessed spectra, one per row</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    bs:<span class="bu">int</span><span class="op">=</span><span class="dv">256</span>, <span class="co"># Batch size</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span><span class="bu">dict</span>: <span class="co"># Layer name: array with one row per spectrum</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Representation of each spectrum in <code>X</code> at the input, after each block of <code>model</code>, and after global pooling</em></p>
+</section>
+</div>
+<div id="i0000009" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">0</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>X_syn <span class="op">=</span> rng.random((<span class="dv">60</span>, <span class="bu">len</span>(shared_wns)))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>m_syn <span class="op">=</span> SpectralCNN()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>F_syn <span class="op">=</span> layer_features(m_syn, X_syn)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>test_eq(<span class="bu">list</span>(F_syn), [<span class="st">'input'</span>] <span class="op">+</span> [<span class="ss">f'block </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>)] <span class="op">+</span> [<span class="st">'pooled'</span>])</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>{k: v.shape <span class="cf">for</span> k, v <span class="kw">in</span> F_syn.items()}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input': (60, 1675),
+ 'block 1': (60, 8928),
+ 'block 2': (60, 5952),
+ 'block 3': (60, 3968),
+ 'block 4': (60, 2560),
+ 'block 5': (60, 1536),
+ 'pooled': (60, 256)}</code></pre>
+</div>
+</div>
+<p><code>pooled</code> matches the backbone’s own output:</p>
+<div id="i0000011" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>xb <span class="op">=</span> TensorSpectrum(torch.tensor(X_syn, dtype<span class="op">=</span>torch.float32).unsqueeze(<span class="dv">1</span>), wns<span class="op">=</span>shared_wns)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> torch.no_grad(): ref <span class="op">=</span> m_syn.<span class="bu">eval</span>().backbone(BatchSNV()(xb)).numpy()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>test_close(F_syn[<span class="st">'pooled'</span>], ref, eps<span class="op">=</span><span class="fl">1e-4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="similarity" class="level2">
+<h2 class="anchored" data-anchor-id="similarity">Similarity</h2>
+<p><code>linear_cka</code> is linear centred kernel alignment (Kornblith et al.&nbsp;2019). It compares two representations of the same samples, which may have different numbers of features. It is 1 when one representation is a rotation and rescaling of the other, and near 0 when they are unrelated. It is computed from the n × n Gram matrices, so it works for layers with thousands of features.</p>
+<div id="64796c86" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-27T21:42:39.609954+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-27T21:42:39.613458+00:00&quot;,&quot;total&quot;:0.003508833000012146}}" data-execution_count="6">
+<hr>
+<section id="linear_cka" class="level3">
+<h3 class="anchored" data-anchor-id="linear_cka">linear_cka</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> linear_cka(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    A, <span class="co"># Representation of n samples, one row per sample</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    B, <span class="co"># Another representation of the same n samples</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span><span class="bu">float</span>:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Linear centred kernel alignment between <code>A</code> and <code>B</code></em></p>
+</section>
+</div>
+<div id="i0000015" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> rng.normal(size<span class="op">=</span>(<span class="dv">200</span>, <span class="dv">30</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Q, _ <span class="op">=</span> np.linalg.qr(rng.normal(size<span class="op">=</span>(<span class="dv">30</span>, <span class="dv">30</span>)))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>test_close(linear_cka(A, A), <span class="dv">1</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>test_close(linear_cka(A, <span class="dv">3</span> <span class="op">*</span> A <span class="op">@</span> Q), <span class="dv">1</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>test_eq(linear_cka(A, rng.normal(size<span class="op">=</span>(<span class="dv">200</span>, <span class="dv">50</span>))) <span class="op">&lt;</span> <span class="fl">0.3</span>, <span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>cka_layers</code> applies <code>linear_cka</code> layer by layer to two dicts from <code>layer_features</code>:</p>
+<div id="ed989c12" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-27T21:42:39.614842+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-27T21:42:39.617778+00:00&quot;,&quot;total&quot;:0.0029393750000110686}}" data-execution_count="8">
+<hr>
+<section id="cka_layers" class="level3">
+<h3 class="anchored" data-anchor-id="cka_layers">cka_layers</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cka_layers(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    Fa:<span class="bu">dict</span>, <span class="co"># Layer name: representation, from `layer_features`</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    Fb:<span class="bu">dict</span>, <span class="co"># The same layers for the same samples, from another model or input</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>pandas.Series: <span class="co"># One value per layer</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em><code>linear_cka</code> between <code>Fa</code> and <code>Fb</code> at each layer</em></p>
+</section>
+</div>
+<div id="i0000018" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>test_eq(cka_layers(F_syn, F_syn).<span class="bu">round</span>(<span class="dv">6</span>).tolist(), [<span class="fl">1.0</span>] <span class="op">*</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="distance-from-a-reference-set" class="level2">
+<h2 class="anchored" data-anchor-id="distance-from-a-reference-set">Distance from a reference set</h2>
+<p><code>nn_ratio</code> measures how far new samples sit from a reference set, such as Fukushima spectra from OSSL. It standardises the features on the reference set and projects them on the reference’s first <code>n_pca</code> principal components. It then divides the median distance from each new sample to its nearest reference sample by the median distance from each reference sample to its nearest other reference sample. A ratio near 1 means the new samples sit among the reference samples. A large ratio means they sit outside.</p>
+<p>The ratio depends on the size of the reference set. Comparing it with the ratio for held-out samples from the reference population, which should be near 1, is a fair control.</p>
+<div id="43acbd47" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-27T21:42:39.619461+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-27T21:42:39.622803+00:00&quot;,&quot;total&quot;:0.0033457369999894127}}" data-execution_count="10">
+<hr>
+<section id="nn_ratio" class="level3">
+<h3 class="anchored" data-anchor-id="nn_ratio">nn_ratio</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nn_ratio(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    F_ref, <span class="co"># Reference representation, one row per sample</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    F_new, <span class="co"># Representation of new samples, with the same features</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    n_pca:<span class="bu">int</span><span class="op">=</span><span class="dv">50</span>, <span class="co"># Number of principal components</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span><span class="bu">float</span>:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Median nearest-neighbour distance from <code>F_new</code> to <code>F_ref</code>, over the median within <code>F_ref</code></em></p>
+</section>
+</div>
+<div id="i0000022" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ref, same, shifted <span class="op">=</span> rng.normal(size<span class="op">=</span>(<span class="dv">500</span>, <span class="dv">20</span>)), rng.normal(size<span class="op">=</span>(<span class="dv">200</span>, <span class="dv">20</span>)), rng.normal(<span class="dv">3</span>, <span class="dv">1</span>, size<span class="op">=</span>(<span class="dv">200</span>, <span class="dv">20</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>test_eq(<span class="fl">0.8</span> <span class="op">&lt;</span> nn_ratio(ref, same) <span class="op">&lt;</span> <span class="fl">1.3</span>, <span class="va">True</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>test_eq(nn_ratio(ref, shifted) <span class="op">&gt;</span> <span class="dv">2</span>, <span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="probes" class="level2">
+<h2 class="anchored" data-anchor-id="probes">Probes</h2>
+<p><code>probe</code> fits a ridge regression from a layer’s features to a target on the training samples, and scores it on the test samples with <code>score_fn</code>, by default <code>scores</code>. The features are standardised, and the ridge penalty is chosen by efficient leave-one-out cross-validation on the training samples. A probe shows how much of the target a layer holds in a linearly readable form, whatever the model’s own head does with it.</p>
+<div id="8527c9ca" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-27T21:42:39.624448+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-27T21:42:39.628029+00:00&quot;,&quot;total&quot;:0.003584536999994725}}" data-execution_count="12">
+<pre><code>/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/fastcore/docments.py:478: UserWarning: docments unavailable for probe: ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+  warnings.warn(f'docments unavailable for {self.nm}: {type(e).__name__}: {e}')</code></pre>
+<hr>
+<section id="probe" class="level3">
+<h3 class="anchored" data-anchor-id="probe">probe</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>probe(F_train, y_train, F_test, y_test, alphas<span class="op">=</span>array([<span class="fl">1.00000000e-01</span>, <span class="fl">3.16227766e-01</span>, <span class="fl">1.00000000e+00</span>, <span class="fl">3.16227766e+00</span>,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>       <span class="fl">1.00000000e+01</span>, <span class="fl">3.16227766e+01</span>, <span class="fl">1.00000000e+02</span>, <span class="fl">3.16227766e+02</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>       <span class="fl">1.00000000e+03</span>, <span class="fl">3.16227766e+03</span>, <span class="fl">1.00000000e+04</span>, <span class="fl">3.16227766e+04</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>       <span class="fl">1.00000000e+05</span>, <span class="fl">3.16227766e+05</span>, <span class="fl">1.00000000e+06</span>]), score_fn<span class="op">=&lt;</span>function scores at <span class="bn">0x7e6d71791080</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="bu">dict</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Test scores of a ridge regression from <code>F_train</code> to <code>y_train</code></em></p>
+</section>
+</div>
+<div id="i0000026" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> rng.normal(size<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Xp <span class="op">=</span> rng.normal(size<span class="op">=</span>(<span class="dv">300</span>, <span class="dv">20</span>))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>yp <span class="op">=</span> np.log1p(np.exp(<span class="fl">0.1</span> <span class="op">*</span> Xp <span class="op">@</span> w <span class="op">+</span> <span class="fl">0.05</span> <span class="op">*</span> rng.normal(size<span class="op">=</span><span class="dv">300</span>)))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> probe(Xp[:<span class="dv">200</span>], yp[:<span class="dv">200</span>], Xp[<span class="dv">200</span>:], yp[<span class="dv">200</span>:])</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>test_eq(res[<span class="st">'R²'</span>] <span class="op">&gt;</span> <span class="fl">0.9</span>, <span class="va">True</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'R²': 0.9554505703800562,
+ 'r': np.float64(0.9798306979006248),
+ 'RMSE': np.float64(0.22677363602703624),
+ 'bias': np.float64(-0.025616102029198496),
+ 'alpha': 0.31622776601683794}</code></pre>
+</div>
+</div>
+<p><code>tracked_model</code> loads the final weights of a run that <code>06_dynamics</code> saved with <code>tracked_fit</code>:</p>
+<div id="430cdea7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-27T21:42:39.629402+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-27T21:42:39.632201+00:00&quot;,&quot;total&quot;:0.002803501000016695}}" data-execution_count="14">
+<hr>
+<section id="tracked_model" class="level3">
+<h3 class="anchored" data-anchor-id="tracked_model">tracked_model</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tracked_model(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    fname</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em><code>SpectralCNN</code> with the final weights of the <code>tracked_fit</code> record saved under <code>fname</code></em></p>
+</section>
+</div>
+</section>
+<section id="data-and-models" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-models">Data and models</h2>
+<p>The data and preprocessing are those of <code>03_kex</code> and <code>06_dynamics</code>. From OSSL, 2,500 spectra of the pretraining’s training set form the reference set, and 1,388 spectra of its validation set, as many as there are Fukushima spectra, are held out:</p>
+<div id="i0000031" class="cell" data-fukudata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>om <span class="op">=</span> load_ossl().mir(wmin<span class="op">=</span>shared_wns[<span class="dv">0</span>], wmax<span class="op">=</span>shared_wns[<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>Xo, yo, _ <span class="op">=</span> om.xy(<span class="st">'k.ext_usda.a725_cmolc.kg'</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>yo <span class="op">=</span> np.log1p(yo.ravel())</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>fuku <span class="op">=</span> load_fuku()</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>fuku.source <span class="op">=</span> fuku.source.assign(target<span class="op">=</span>fuku.source[<span class="st">'soil_ex_K2O'</span>] <span class="op">/</span> mg_k2o_per_cmolc)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>Xf, yf, idf <span class="op">=</span> fuku.xy(<span class="st">'target'</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>yf <span class="op">=</span> np.log1p(yf.ravel())</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>is_test <span class="op">=</span> np.isin(idf, cs137_split()[<span class="dv">1</span>])</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> preprocessings()[<span class="st">'snv_d1'</span>]</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>Xo_d, Xf_d <span class="op">=</span> pipe.fit_transform(Xo), pipe.transform(Xf)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>tr, va, _ <span class="op">=</span> get_splitter(<span class="fl">0.9</span>, <span class="fl">0.1</span>, seed<span class="op">=</span><span class="dv">42</span>)(Xo_d, yo)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> np.random.default_rng(<span class="dv">0</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>o_ref, o_new <span class="op">=</span> r.choice(tr, <span class="dv">2500</span>, replace<span class="op">=</span><span class="va">False</span>), r.choice(va, <span class="bu">len</span>(Xf_d), replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(o_ref), <span class="bu">len</span>(o_new), <span class="bu">len</span>(Xf_d), <span class="bu">int</span>(is_test.<span class="bu">sum</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>(2500, 1388, 1388, 341)</code></pre>
+</div>
+</div>
+<p>Four models: the saved OSSL model (<code>pretrained</code>), the fully fine-tuned and Fukushima-only models trained in <code>06_dynamics</code>, and a model with random weights as a control. The control shows what the architecture alone does to the representations. The test scores of each model’s own head:</p>
+<div id="i0000033" class="cell" data-fukudata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>set_seed(<span class="dv">0</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> {<span class="st">'pretrained'</span>: load_pretrained(<span class="st">'ossl_kex_snv_d1'</span>), <span class="st">'fully fine-tuned'</span>: tracked_model(<span class="st">'dyn_fuku_kex_ft'</span>),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>          <span class="st">'Fukushima only'</span>: tracked_model(<span class="st">'dyn_fuku_kex_scratch'</span>), <span class="st">'random'</span>: SpectralCNN()}</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {<span class="st">'OSSL ref'</span>: Xo_d[o_ref], <span class="st">'OSSL held out'</span>: Xo_d[o_new], <span class="st">'Fukushima'</span>: Xf_d}</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>F <span class="op">=</span> {(m, d): layer_features(model, X) <span class="cf">for</span> m, model <span class="kw">in</span> models.items() <span class="cf">for</span> d, X <span class="kw">in</span> data.items()}</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>layers <span class="op">=</span> <span class="bu">list</span>(F[<span class="st">'random'</span>, <span class="st">'Fukushima'</span>])</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({m: scores(yf[is_test], predict(model, Xf_d[is_test], shared_wns)) <span class="cf">for</span> m, model <span class="kw">in</span> models.items()}).<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">pretrained</th>
+<th data-quarto-table-cell-role="th">fully fine-tuned</th>
+<th data-quarto-table-cell-role="th">Fukushima only</th>
+<th data-quarto-table-cell-role="th">random</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">R²</th>
+<td>-0.820</td>
+<td>0.426</td>
+<td>0.377</td>
+<td>-1.213</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">r</th>
+<td>0.126</td>
+<td>0.655</td>
+<td>0.616</td>
+<td>-0.152</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">RMSE</th>
+<td>0.537</td>
+<td>0.303</td>
+<td>0.316</td>
+<td>0.570</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">bias</th>
+<td>0.285</td>
+<td>-0.035</td>
+<td>-0.037</td>
+<td>-0.396</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="how-alike-the-models-are" class="level2">
+<h2 class="anchored" data-anchor-id="how-alike-the-models-are">How alike the models are</h2>
+<p>CKA between pairs of models at each layer, on the Fukushima spectra and on the held-out OSSL spectra. The input is the same for all models, so it is left out:</p>
+<div id="i0000036" class="cell" data-fukudata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pairs <span class="op">=</span> [(<span class="st">'pretrained'</span>, <span class="st">'fully fine-tuned'</span>), (<span class="st">'pretrained'</span>, <span class="st">'Fukushima only'</span>), (<span class="st">'fully fine-tuned'</span>, <span class="st">'Fukushima only'</span>), (<span class="st">'pretrained'</span>, <span class="st">'random'</span>)]</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>cka_m <span class="op">=</span> pd.DataFrame({(d, <span class="ss">f'</span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss">'</span>): cka_layers(F[a, d], F[b, d]) <span class="cf">for</span> d <span class="kw">in</span> (<span class="st">'Fukushima'</span>, <span class="st">'OSSL held out'</span>) <span class="cf">for</span> a, b <span class="kw">in</span> pairs}).drop(<span class="st">'input'</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">3.5</span>), sharey<span class="op">=</span><span class="va">True</span>, layout<span class="op">=</span><span class="st">'constrained'</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, d <span class="kw">in</span> <span class="bu">zip</span>(axs, (<span class="st">'Fukushima'</span>, <span class="st">'OSSL held out'</span>)):</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    cka_m[d].plot(ax<span class="op">=</span>ax, marker<span class="op">=</span><span class="st">'o'</span>, lw<span class="op">=</span><span class="dv">1</span>, title<span class="op">=</span>d)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">'linear CKA'</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].get_legend().remove()</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>cka_m.<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_inside_transfer_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="4" data-quarto-table-cell-role="th" data-halign="left">Fukushima</th>
+<th colspan="4" data-quarto-table-cell-role="th" data-halign="left">OSSL held out</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">pretrained / fully fine-tuned</th>
+<th data-quarto-table-cell-role="th">pretrained / Fukushima only</th>
+<th data-quarto-table-cell-role="th">fully fine-tuned / Fukushima only</th>
+<th data-quarto-table-cell-role="th">pretrained / random</th>
+<th data-quarto-table-cell-role="th">pretrained / fully fine-tuned</th>
+<th data-quarto-table-cell-role="th">pretrained / Fukushima only</th>
+<th data-quarto-table-cell-role="th">fully fine-tuned / Fukushima only</th>
+<th data-quarto-table-cell-role="th">pretrained / random</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">block 1</th>
+<td>0.996</td>
+<td>0.983</td>
+<td>0.968</td>
+<td>0.933</td>
+<td>0.999</td>
+<td>0.997</td>
+<td>0.996</td>
+<td>0.981</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">block 2</th>
+<td>0.993</td>
+<td>0.947</td>
+<td>0.939</td>
+<td>0.907</td>
+<td>0.990</td>
+<td>0.994</td>
+<td>0.992</td>
+<td>0.986</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">block 3</th>
+<td>0.986</td>
+<td>0.899</td>
+<td>0.927</td>
+<td>0.797</td>
+<td>0.982</td>
+<td>0.970</td>
+<td>0.984</td>
+<td>0.960</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">block 4</th>
+<td>0.970</td>
+<td>0.811</td>
+<td>0.886</td>
+<td>0.675</td>
+<td>0.973</td>
+<td>0.910</td>
+<td>0.950</td>
+<td>0.849</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">block 5</th>
+<td>0.744</td>
+<td>0.501</td>
+<td>0.704</td>
+<td>0.524</td>
+<td>0.845</td>
+<td>0.651</td>
+<td>0.771</td>
+<td>0.661</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">pooled</th>
+<td>0.381</td>
+<td>0.121</td>
+<td>0.663</td>
+<td>0.176</td>
+<td>0.565</td>
+<td>0.132</td>
+<td>0.346</td>
+<td>0.208</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="distance-from-ossl" class="level2">
+<h2 class="anchored" data-anchor-id="distance-from-ossl">Distance from OSSL</h2>
+<p><code>nn_ratio</code> at each layer of each model, with the 2,500 OSSL reference spectra as the reference set. The held-out OSSL spectra are the control: they come from the same population as the reference set:</p>
+<div id="i0000039" class="cell" data-fukudata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>dist <span class="op">=</span> pd.DataFrame({(m, d): {k: nn_ratio(F[m, <span class="st">'OSSL ref'</span>][k], F[m, d][k]) <span class="cf">for</span> k <span class="kw">in</span> layers}</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                     <span class="cf">for</span> m <span class="kw">in</span> models <span class="cf">for</span> d <span class="kw">in</span> (<span class="st">'OSSL held out'</span>, <span class="st">'Fukushima'</span>)})</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">3.5</span>), layout<span class="op">=</span><span class="st">'constrained'</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> models: ax.plot(layers, dist[m, <span class="st">'Fukushima'</span>] <span class="op">/</span> dist[m, <span class="st">'OSSL held out'</span>], marker<span class="op">=</span><span class="st">'o'</span>, lw<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span>m)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Fukushima / OSSL held-out ratio'</span>)<span class="op">;</span> ax.legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>dist.<span class="bu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_inside_transfer_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">pretrained</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">fully fine-tuned</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">Fukushima only</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">random</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">OSSL held out</th>
+<th data-quarto-table-cell-role="th">Fukushima</th>
+<th data-quarto-table-cell-role="th">OSSL held out</th>
+<th data-quarto-table-cell-role="th">Fukushima</th>
+<th data-quarto-table-cell-role="th">OSSL held out</th>
+<th data-quarto-table-cell-role="th">Fukushima</th>
+<th data-quarto-table-cell-role="th">OSSL held out</th>
+<th data-quarto-table-cell-role="th">Fukushima</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">input</th>
+<td>1.00</td>
+<td>2.52</td>
+<td>1.00</td>
+<td>2.52</td>
+<td>1.00</td>
+<td>2.52</td>
+<td>1.00</td>
+<td>2.52</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">block 1</th>
+<td>1.00</td>
+<td>2.67</td>
+<td>0.99</td>
+<td>2.66</td>
+<td>1.00</td>
+<td>2.72</td>
+<td>1.00</td>
+<td>2.75</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">block 2</th>
+<td>0.99</td>
+<td>2.40</td>
+<td>0.99</td>
+<td>2.35</td>
+<td>1.01</td>
+<td>2.56</td>
+<td>1.01</td>
+<td>2.77</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">block 3</th>
+<td>0.99</td>
+<td>2.27</td>
+<td>0.98</td>
+<td>2.21</td>
+<td>0.99</td>
+<td>2.37</td>
+<td>1.01</td>
+<td>2.67</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">block 4</th>
+<td>1.01</td>
+<td>2.06</td>
+<td>0.99</td>
+<td>1.96</td>
+<td>0.99</td>
+<td>2.05</td>
+<td>1.01</td>
+<td>2.68</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">block 5</th>
+<td>0.99</td>
+<td>2.20</td>
+<td>1.01</td>
+<td>1.83</td>
+<td>1.00</td>
+<td>1.70</td>
+<td>1.00</td>
+<td>2.84</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">pooled</th>
+<td>1.00</td>
+<td>2.29</td>
+<td>0.99</td>
+<td>1.94</td>
+<td>1.00</td>
+<td>2.48</td>
+<td>1.00</td>
+<td>2.66</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="bruker-and-thermo-spectra-of-the-same-soils" class="level2">
+<h2 class="anchored" data-anchor-id="bruker-and-thermo-spectra-of-the-same-soils">Bruker and Thermo spectra of the same soils</h2>
+<p>The 376 soils of <code>05_paired</code> with both Bruker and Thermo spectra, on the grid both instruments cover (650–3996 cm⁻¹), with the same preprocessing. CKA between the two instruments’ representations of the same soils, at each layer of each model:</p>
+<div id="i0000042" class="cell" data-fukudata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pw <span class="op">=</span> np.arange(<span class="dv">650</span>, <span class="dv">3997</span>, <span class="dv">2</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">sorted</span>(<span class="bu">set</span>(bruker_files()) <span class="op">&amp;</span> <span class="bu">set</span>(spa_files()), key<span class="op">=</span><span class="bu">int</span>) <span class="cf">if</span> i <span class="kw">not</span> <span class="kw">in</span> excluded]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>br, th <span class="op">=</span> load_bruker(pw, ids), load_fuku(pw, ids)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>pre <span class="op">=</span> preprocessings()[<span class="st">'snv_d1'</span>]</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>Xb, Xt <span class="op">=</span> pre.fit_transform(br.spectra), pre.fit_transform(th.spectra)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>paired <span class="op">=</span> pd.DataFrame({m: cka_layers(layer_features(model, Xb), layer_features(model, Xt)) <span class="cf">for</span> m, model <span class="kw">in</span> models.items()})</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> paired.plot(marker<span class="op">=</span><span class="st">'o'</span>, lw<span class="op">=</span><span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">3.5</span>), ylabel<span class="op">=</span><span class="st">'linear CKA, Bruker / Thermo'</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>paired.<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_inside_transfer_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">pretrained</th>
+<th data-quarto-table-cell-role="th">fully fine-tuned</th>
+<th data-quarto-table-cell-role="th">Fukushima only</th>
+<th data-quarto-table-cell-role="th">random</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">input</th>
+<td>0.621</td>
+<td>0.621</td>
+<td>0.621</td>
+<td>0.621</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">block 1</th>
+<td>0.610</td>
+<td>0.587</td>
+<td>0.592</td>
+<td>0.667</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">block 2</th>
+<td>0.653</td>
+<td>0.607</td>
+<td>0.613</td>
+<td>0.616</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">block 3</th>
+<td>0.671</td>
+<td>0.637</td>
+<td>0.621</td>
+<td>0.529</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">block 4</th>
+<td>0.724</td>
+<td>0.729</td>
+<td>0.689</td>
+<td>0.411</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">block 5</th>
+<td>0.449</td>
+<td>0.507</td>
+<td>0.430</td>
+<td>0.289</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">pooled</th>
+<td>0.268</td>
+<td>0.320</td>
+<td>0.234</td>
+<td>0.725</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="kex-in-each-layer" class="level2">
+<h2 class="anchored" data-anchor-id="kex-in-each-layer">Kex in each layer</h2>
+<p>A <code>probe</code> at each layer of each model. For Fukushima, the probes train on the Fukushima training samples and are scored on the test set. For OSSL, they train on the 2,500 reference spectra and are scored on the 1,388 held-out spectra. The R² of <code>log1p(Kex)</code>:</p>
+<div id="i0000045" class="cell" data-fukudata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> models:</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> layers:</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        Ff <span class="op">=</span> F[m, <span class="st">'Fukushima'</span>][k]</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        rows.append({<span class="st">'data'</span>: <span class="st">'Fukushima'</span>, <span class="st">'model'</span>: m, <span class="st">'layer'</span>: k, <span class="op">**</span>probe(Ff[<span class="op">~</span>is_test], yf[<span class="op">~</span>is_test], Ff[is_test], yf[is_test])})</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        rows.append({<span class="st">'data'</span>: <span class="st">'OSSL'</span>, <span class="st">'model'</span>: m, <span class="st">'layer'</span>: k, <span class="op">**</span>probe(F[m, <span class="st">'OSSL ref'</span>][k], yo[o_ref], F[m, <span class="st">'OSSL held out'</span>][k], yo[o_new])})</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>pr <span class="op">=</span> pd.DataFrame(rows)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">3.5</span>), layout<span class="op">=</span><span class="st">'constrained'</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, d <span class="kw">in</span> <span class="bu">zip</span>(axs, (<span class="st">'OSSL'</span>, <span class="st">'Fukushima'</span>)):</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> m <span class="kw">in</span> models:</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> pr[(pr.data <span class="op">==</span> d) <span class="op">&amp;</span> (pr.model <span class="op">==</span> m)]</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        ax.plot(s.layer, s[<span class="st">'R²'</span>], marker<span class="op">=</span><span class="st">'o'</span>, lw<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span>m)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    ax.set_title(d)<span class="op">;</span> ax.set_ylabel(<span class="st">'probe R²'</span>)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>pr.pivot_table(index<span class="op">=</span><span class="st">'layer'</span>, columns<span class="op">=</span>[<span class="st">'data'</span>, <span class="st">'model'</span>], values<span class="op">=</span><span class="st">'R²'</span>, sort<span class="op">=</span><span class="va">False</span>).<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_inside_transfer_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">data</th>
+<th data-quarto-table-cell-role="th">Fukushima</th>
+<th data-quarto-table-cell-role="th">OSSL</th>
+<th data-quarto-table-cell-role="th">Fukushima</th>
+<th data-quarto-table-cell-role="th">OSSL</th>
+<th data-quarto-table-cell-role="th">Fukushima</th>
+<th data-quarto-table-cell-role="th">OSSL</th>
+<th data-quarto-table-cell-role="th">Fukushima</th>
+<th data-quarto-table-cell-role="th">OSSL</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">model</th>
+<th data-quarto-table-cell-role="th">pretrained</th>
+<th data-quarto-table-cell-role="th">pretrained</th>
+<th data-quarto-table-cell-role="th">fully fine-tuned</th>
+<th data-quarto-table-cell-role="th">fully fine-tuned</th>
+<th data-quarto-table-cell-role="th">Fukushima only</th>
+<th data-quarto-table-cell-role="th">Fukushima only</th>
+<th data-quarto-table-cell-role="th">random</th>
+<th data-quarto-table-cell-role="th">random</th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">layer</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">input</th>
+<td>0.332</td>
+<td>0.587</td>
+<td>0.332</td>
+<td>0.587</td>
+<td>0.332</td>
+<td>0.587</td>
+<td>0.332</td>
+<td>0.587</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">block 1</th>
+<td>0.378</td>
+<td>0.669</td>
+<td>0.376</td>
+<td>0.668</td>
+<td>0.373</td>
+<td>0.647</td>
+<td>0.383</td>
+<td>0.640</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">block 2</th>
+<td>0.403</td>
+<td>0.666</td>
+<td>0.410</td>
+<td>0.661</td>
+<td>0.385</td>
+<td>0.663</td>
+<td>0.389</td>
+<td>0.638</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">block 3</th>
+<td>0.396</td>
+<td>0.661</td>
+<td>0.410</td>
+<td>0.658</td>
+<td>0.403</td>
+<td>0.653</td>
+<td>0.407</td>
+<td>0.636</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">block 4</th>
+<td>0.429</td>
+<td>0.692</td>
+<td>0.443</td>
+<td>0.669</td>
+<td>0.395</td>
+<td>0.643</td>
+<td>0.384</td>
+<td>0.635</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">block 5</th>
+<td>0.371</td>
+<td>0.782</td>
+<td>0.423</td>
+<td>0.699</td>
+<td>0.387</td>
+<td>0.593</td>
+<td>0.367</td>
+<td>0.574</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">pooled</th>
+<td>0.253</td>
+<td>0.787</td>
+<td>0.429</td>
+<td>0.653</td>
+<td>0.393</td>
+<td>0.472</td>
+<td>0.290</td>
+<td>0.492</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The correlation <code>r</code> of the same probes:</p>
+<div id="i0000047" class="cell" data-fukudata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pr.pivot_table(index<span class="op">=</span><span class="st">'layer'</span>, columns<span class="op">=</span>[<span class="st">'data'</span>, <span class="st">'model'</span>], values<span class="op">=</span><span class="st">'r'</span>, sort<span class="op">=</span><span class="va">False</span>).<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">data</th>
+<th data-quarto-table-cell-role="th">Fukushima</th>
+<th data-quarto-table-cell-role="th">OSSL</th>
+<th data-quarto-table-cell-role="th">Fukushima</th>
+<th data-quarto-table-cell-role="th">OSSL</th>
+<th data-quarto-table-cell-role="th">Fukushima</th>
+<th data-quarto-table-cell-role="th">OSSL</th>
+<th data-quarto-table-cell-role="th">Fukushima</th>
+<th data-quarto-table-cell-role="th">OSSL</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">model</th>
+<th data-quarto-table-cell-role="th">pretrained</th>
+<th data-quarto-table-cell-role="th">pretrained</th>
+<th data-quarto-table-cell-role="th">fully fine-tuned</th>
+<th data-quarto-table-cell-role="th">fully fine-tuned</th>
+<th data-quarto-table-cell-role="th">Fukushima only</th>
+<th data-quarto-table-cell-role="th">Fukushima only</th>
+<th data-quarto-table-cell-role="th">random</th>
+<th data-quarto-table-cell-role="th">random</th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">layer</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">input</th>
+<td>0.582</td>
+<td>0.776</td>
+<td>0.582</td>
+<td>0.776</td>
+<td>0.582</td>
+<td>0.776</td>
+<td>0.582</td>
+<td>0.776</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">block 1</th>
+<td>0.618</td>
+<td>0.819</td>
+<td>0.617</td>
+<td>0.819</td>
+<td>0.614</td>
+<td>0.811</td>
+<td>0.619</td>
+<td>0.802</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">block 2</th>
+<td>0.635</td>
+<td>0.822</td>
+<td>0.640</td>
+<td>0.820</td>
+<td>0.620</td>
+<td>0.819</td>
+<td>0.624</td>
+<td>0.804</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">block 3</th>
+<td>0.629</td>
+<td>0.818</td>
+<td>0.640</td>
+<td>0.816</td>
+<td>0.635</td>
+<td>0.811</td>
+<td>0.638</td>
+<td>0.805</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">block 4</th>
+<td>0.657</td>
+<td>0.836</td>
+<td>0.666</td>
+<td>0.822</td>
+<td>0.632</td>
+<td>0.804</td>
+<td>0.621</td>
+<td>0.799</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">block 5</th>
+<td>0.614</td>
+<td>0.886</td>
+<td>0.651</td>
+<td>0.838</td>
+<td>0.626</td>
+<td>0.773</td>
+<td>0.607</td>
+<td>0.765</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">pooled</th>
+<td>0.504</td>
+<td>0.888</td>
+<td>0.657</td>
+<td>0.810</td>
+<td>0.630</td>
+<td>0.691</td>
+<td>0.542</td>
+<td>0.707</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="findings" class="level2">
+<h2 class="anchored" data-anchor-id="findings">Findings</h2>
+<p>On Fukushima, every layer of every model holds about the same amount of linearly readable Kex information, even the model with random weights. A ridge probe on the preprocessed spectra gives a test R² of 0.33 (r 0.58). Probes on blocks 1 to 5 of all four models give 0.37 to 0.44 (r 0.61 to 0.67). The random model’s best block gives 0.41. The best probe is block 4 of the fully fine-tuned model, at 0.44. A probe on block 4 of the frozen pretrained model gives 0.43 (r 0.66), the same as the fully fine-tuned model’s own head (0.43, r 0.66). With 341 test samples, one R² has a sampling standard deviation of about 0.04, so most of these differences are within noise. In these layers, neither pretraining on OSSL nor training on Fukushima produces features that hold clearly more Kex information than random convolutions do.</p>
+<p>On OSSL, learning makes a large difference. The pretrained model’s probes rise from 0.59 at the input to 0.79 at the pooled features, while the random model’s stay between 0.49 and 0.64. That gain does not carry over to Fukushima. There, the pretrained model’s pooled features give 0.25, less than the spectra themselves. Block 5 and the global pool are where the pretrained model turns general features into OSSL-specific ones.</p>
+<p>The CKA comparisons point to the same split. Fine-tuning leaves blocks 1 to 4 almost unchanged (CKA with the pretrained model 0.97 or more on Fukushima spectra) and changes block 5 (0.74) and the pooled features (0.38). The Fukushima-only model is close to the pretrained model in block 1 (0.98) and moves away with depth: 0.81 in block 4, 0.50 in block 5 and 0.12 in the pooled features. The random model is also close to the pretrained model in the early blocks (0.93 in block 1), so a high CKA there mostly reflects the architecture. In block 4, the Fukushima-only model is closer to the pretrained model (0.81) than the random model is (0.68). Training on either dataset finds partly the same mid-level features.</p>
+<p>Fukushima spectra sit outside OSSL in every layer of every model. At the input, the median distance from a Fukushima spectrum to its nearest OSSL spectrum is 2.5 times that of a held-out OSSL spectrum, whose ratio is 1.0. The random model keeps the ratio at 2.7 to 2.8 through all blocks. The trained models bring it down with depth, to about 2.0 in block 4 and 1.7 to 2.2 in block 5. None brings Fukushima among the OSSL spectra. The pretrained model’s pooled features push it back out, to 2.3.</p>
+<p>For the 376 soils with both Bruker and Thermo spectra, the CKA between the two instruments’ representations is 0.62 at the input. In the three trained models it dips slightly in block 1 (0.59 to 0.61), rises to 0.69 to 0.73 in block 4, then falls to 0.43 to 0.51 in block 5 and 0.23 to 0.32 in the pooled features. Blocks 2 to 4 make the two instruments’ spectra of a soil more alike, and block 5 and the pool make them less alike. In the random model the CKA falls from block 1 to 0.29 in block 5, but its pooled features give 0.73. With random weights, the global average probably keeps mostly an overall intensity that both instruments share. This was not checked.</p>
+<p>The Fukushima Kex ceiling of about 0.43 is reached by linear probes on random features, by frozen OSSL features and by the end-to-end models alike. So the limit lies in the Fukushima data rather than in the features the CNN learns. <code>08_learning_curve</code> shows which part of the data: every model still gains R² with more training samples at 1,047, so the number of samples limits the scores. In the pretrained model, block 4 is the best candidate layer to transfer from. Its probe is the best of that model on Fukushima, although within noise of the others. It brings Fukushima closest to OSSL, and it makes the two instruments most alike.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/franckalbinet\.github\.io\/ossl-fuku-transfer");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/franckalbinet/ossl-fuku-transfer/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

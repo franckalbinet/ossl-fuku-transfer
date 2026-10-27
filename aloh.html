@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Measure the sharp Al–OH band near 3620 cm⁻¹, which the OSSL Kex model relies on most, in the Fukushima Thermo and Bruker spectra and their OSSL analogues, and test whether it still tracks Kex">
+
+<title>Al–OH band – OSSL to Fukushima transfer</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4a0132d6516ed1437d66c2742ecec8d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Al–OH band – OSSL to Fukushima transfer">
+<meta property="og:description" content="Measure the sharp Al–OH band near 3620 cm⁻¹, which the OSSL Kex model relies on most, in the Fukushima Thermo and Bruker spectra and their OSSL analogues, and test whether it still tracks Kex">
+<meta property="og:image" content="https://franckalbinet.github.io/ossl-fuku-transfer/18_aloh_files/figure-html/cell-6-output-1.png">
+<meta property="og:site_name" content="OSSL to Fukushima transfer">
+<meta property="og:image:height" content="823">
+<meta property="og:image:width" content="1823">
+<meta name="twitter:title" content="Al–OH band – OSSL to Fukushima transfer">
+<meta name="twitter:description" content="Measure the sharp Al–OH band near 3620 cm⁻¹, which the OSSL Kex model relies on most, in the Fukushima Thermo and Bruker spectra and their OSSL analogues, and test whether it still tracks Kex">
+<meta name="twitter:image" content="https://franckalbinet.github.io/ossl-fuku-transfer/18_aloh_files/figure-html/cell-6-output-1.png">
+<meta name="twitter:image-height" content="823">
+<meta name="twitter:image-width" content="1823">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">OSSL to Fukushima transfer</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./paired.html">Why the transfer is limited</a></li><li class="breadcrumb-item"><a href="./aloh.html">Al–OH band</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data and spectra</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fukushima data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OSSL and Fukushima spectra</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Kex and CEC</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./transfer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transfer experiments</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./kex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kex</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cec.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CEC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./learning_curve.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Learning curve</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./block4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Block 4 transfer</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Inside the CNN</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dynamics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Training dynamics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inside_transfer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inside transfer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./importance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wavenumber importance</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Why the transfer is limited</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./paired.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Paired spectra</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./wetchem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wet chemistry</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EPO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./augment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Augmentation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vapour.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Water vapour</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./moisture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sample moisture</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./aloh.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Al–OH band</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Cs-137 ratio</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cs137.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cs-137 ratio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multitask.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multi-task pretraining</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cs137_inside.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inside the Cs-137 models</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Scores on new fields</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./grouped_cv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grouped cross-validation by field</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#band-depth" id="toc-band-depth" class="nav-link active" data-scroll-target="#band-depth">Band depth</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#is-the-band-flattened" id="toc-is-the-band-flattened" class="nav-link" data-scroll-target="#is-the-band-flattened">Is the band flattened?</a></li>
+  <li><a href="#does-the-band-track-kex" id="toc-does-the-band-track-kex" class="nav-link" data-scroll-target="#does-the-band-track-kex">Does the band track Kex?</a></li>
+  <li><a href="#by-soil-type" id="toc-by-soil-type" class="nav-link" data-scroll-target="#by-soil-type">By soil type</a></li>
+  <li><a href="#findings" id="toc-findings" class="nav-link" data-scroll-target="#findings">Findings</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/franckalbinet/ossl-fuku-transfer/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="aloh.html.md"><i class="bi bi-file-code"></i>Markdown</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./paired.html">Why the transfer is limited</a></li><li class="breadcrumb-item"><a href="./aloh.html">Al–OH band</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Al–OH band</h1>
+</div>
+
+<div>
+  <div class="description">
+    Measure the sharp Al–OH band near 3620 cm⁻¹, which the OSSL Kex model relies on most, in the Fukushima Thermo and Bruker spectra and their OSSL analogues, and test whether it still tracks Kex
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div id="k0100004" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-27T21:42:39.912140+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-27T21:42:39.913878+00:00&quot;,&quot;total&quot;:0.0017407900000137033}}" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> spearmanr</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> NearestNeighbors</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastcore.test <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> soilspecdata.<span class="bu">all</span> <span class="im">import</span> load_ossl</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> soilspectfm.preprocessing <span class="im">import</span> SNV</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ossl_fuku_transfer.data <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ossl_fuku_transfer.moisture <span class="im">import</span> band_height</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>17_importance</code> found that the OSSL Kex model relies most densely on 3600–3700 cm⁻¹, with the Al–OH stretching band of illite, smectite and kaolinite near 3620 cm⁻¹ the most important window. <code>16_moisture</code> found the Thermo spectra much higher than their OSSL analogues between 3450 and 3700 cm⁻¹. A broad absorption there could hide the sharp band. This notebook measures the band directly.</p>
+<p>The module part uses small random arrays, so it runs without the data. The sections from <em>Data</em> onwards read OSSL and the Fukushima data, and are marked <code>#| fukudata</code>.</p>
+<section id="band-depth" class="level2">
+<h2 class="anchored" data-anchor-id="band-depth">Band depth</h2>
+<p><code>band_depth</code> measures how sharp a band is: minus the minimum of the Savitzky-Golay second derivative within <code>half</code> cm⁻¹ of <code>center</code>. A sharp band gives a deep negative second derivative, and a broad absorption underneath it adds almost nothing. A window of 11 points is 22 cm⁻¹ on the 2 cm⁻¹ grid. <code>sharp_bands</code> holds the two bands measured here, with the ranges and anchors that <code>band_height</code> uses for the second measure:</p>
+<div id="bd880c1a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-27T21:42:39.915388+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-27T21:42:39.918994+00:00&quot;,&quot;total&quot;:0.0036105060000011235}}" data-execution_count="4">
+<hr>
+<section id="band_depth" class="level3">
+<h3 class="anchored" data-anchor-id="band_depth">band_depth</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> band_depth(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    X, <span class="co"># Spectra, one per row</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    wns, <span class="co"># Wavenumbers of the columns of `X`, evenly spaced</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    center, <span class="co"># Band centre, in cm⁻¹</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    half:<span class="bu">int</span><span class="op">=</span><span class="dv">6</span>, <span class="co"># Half-width of the search range, in cm⁻¹</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    window:<span class="bu">int</span><span class="op">=</span><span class="dv">11</span>, <span class="co"># Savitzky-Golay window, in points</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>numpy.ndarray: <span class="co"># One depth per spectrum, positive for a band</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Minus the minimum of the second derivative of <code>X</code> within <code>half</code> of <code>center</code></em></p>
+</section>
+</div>
+<div id="k0100009" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>wns_syn <span class="op">=</span> np.arange(<span class="dv">3400</span>, <span class="dv">3800</span>, <span class="fl">2.</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>broad <span class="op">=</span> np.exp(<span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span> ((wns_syn <span class="op">-</span> <span class="dv">3500</span>) <span class="op">/</span> <span class="dv">150</span>)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sharp <span class="op">=</span> np.exp(<span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span> ((wns_syn <span class="op">-</span> <span class="dv">3620</span>) <span class="op">/</span> <span class="dv">8</span>)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> band_depth(np.stack([broad, broad <span class="op">+</span> <span class="fl">0.1</span> <span class="op">*</span> sharp, <span class="dv">3</span> <span class="op">*</span> broad <span class="op">+</span> <span class="fl">0.1</span> <span class="op">*</span> sharp]), wns_syn, <span class="dv">3620</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>test_eq(d[<span class="dv">0</span>] <span class="op">&lt;</span> <span class="fl">0.02</span> <span class="op">*</span> d[<span class="dv">1</span>], <span class="va">True</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>test_close(d[<span class="dv">1</span>], d[<span class="dv">2</span>], eps<span class="op">=</span><span class="fl">0.05</span> <span class="op">*</span> d[<span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>SNV spectra on 650–3996 cm⁻¹, the range the Bruker exports cover: the Fukushima Thermo spectra of the current selection, the Thermo and Bruker spectra of the paired soils, 10,000 random OSSL spectra, and each Fukushima soil’s OSSL analogue, matched as in <code>12_wetchem</code>. Kex and clay come from <code>fuku_shared_props</code> and <code>ossl_shared_props</code>:</p>
+<div id="k0100012" class="cell" data-fukudata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pw <span class="op">=</span> shared_wns[:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>snv <span class="op">=</span> SNV()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>om <span class="op">=</span> load_ossl().mir(wmin<span class="op">=</span>shared_wns[<span class="dv">0</span>], wmax<span class="op">=</span>shared_wns[<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>ossl <span class="op">=</span> ossl_shared_props(om)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>op <span class="op">=</span> prop_features(ossl)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>sc_p <span class="op">=</span> StandardScaler().fit(op)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>nn <span class="op">=</span> NearestNeighbors(n_neighbors<span class="op">=</span><span class="dv">1</span>).fit(sc_p.transform(op))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>opos <span class="op">=</span> pd.Series(np.arange(<span class="bu">len</span>(om.sample_ids)), index<span class="op">=</span>om.sample_ids)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> analogues(ids):</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    fp <span class="op">=</span> prop_features(fuku_shared_props(ids))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fp.index, op.index[nn.kneighbors(sc_p.transform(fp))[<span class="dv">1</span>][:, <span class="dv">0</span>]]</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>f_ids, f_an <span class="op">=</span> analogues(sample_ids())</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>p_ids <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">sorted</span>(bruker_files(), key<span class="op">=</span><span class="bu">int</span>) <span class="cf">if</span> i <span class="kw">not</span> <span class="kw">in</span> excluded <span class="kw">and</span> i <span class="kw">in</span> <span class="bu">set</span>(spa_files())]</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>p_ids, p_an <span class="op">=</span> analogues(p_ids)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>o_sub <span class="op">=</span> np.random.default_rng(<span class="dv">0</span>).choice(<span class="bu">len</span>(om.sample_ids), <span class="dv">10000</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>spec <span class="op">=</span> {<span class="st">'Fukushima Thermo'</span>: snv.fit_transform(load_fuku(pw, <span class="bu">list</span>(f_ids)).spectra),</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">'analogues of Fukushima'</span>: snv.fit_transform(om.spectra[opos[f_an].to_numpy()][:, :<span class="op">-</span><span class="dv">1</span>]),</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">'paired Thermo'</span>: snv.fit_transform(load_fuku(pw, <span class="bu">list</span>(p_ids)).spectra),</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">'paired Bruker'</span>: snv.fit_transform(load_bruker(pw, <span class="bu">list</span>(p_ids)).spectra),</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">'analogues of paired'</span>: snv.fit_transform(om.spectra[opos[p_an].to_numpy()][:, :<span class="op">-</span><span class="dv">1</span>]),</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">'OSSL'</span>: snv.fit_transform(om.spectra[o_sub][:, :<span class="op">-</span><span class="dv">1</span>])}</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>fprops <span class="op">=</span> fuku_shared_props(<span class="bu">list</span>(f_ids))<span class="op">;</span> pprops <span class="op">=</span> fuku_shared_props(<span class="bu">list</span>(p_ids))</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>props <span class="op">=</span> {<span class="st">'Fukushima Thermo'</span>: fprops, <span class="st">'analogues of Fukushima'</span>: ossl.loc[f_an], <span class="st">'paired Thermo'</span>: pprops, <span class="st">'paired Bruker'</span>: pprops,</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>         <span class="st">'analogues of paired'</span>: ossl.loc[p_an], <span class="st">'OSSL'</span>: ossl.iloc[o_sub]}</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>{k: <span class="bu">len</span>(v) <span class="cf">for</span> k, v <span class="kw">in</span> spec.items()}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'Fukushima Thermo': 1385,
+ 'analogues of Fukushima': 1385,
+ 'paired Thermo': 375,
+ 'paired Bruker': 375,
+ 'analogues of paired': 375,
+ 'OSSL': 10000}</code></pre>
+</div>
+</div>
+<p>The mean SNV spectrum of each set between 3500 and 3800 cm⁻¹, with the two bands marked:</p>
+<div id="k0100014" class="cell" data-fukudata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> (pw <span class="op">&gt;=</span> <span class="dv">3500</span>) <span class="op">&amp;</span> (pw <span class="op">&lt;=</span> <span class="dv">3800</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">4</span>), layout<span class="op">=</span><span class="st">'constrained'</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, S <span class="kw">in</span> spec.items(): ax.plot(pw[m], S[:, m].mean(<span class="dv">0</span>), lw<span class="op">=</span><span class="fl">0.9</span>, label<span class="op">=</span>k)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c, <span class="op">*</span>_ <span class="kw">in</span> sharp_bands.values(): ax.axvline(c, lw<span class="op">=</span><span class="fl">0.5</span>, c<span class="op">=</span><span class="st">'grey'</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>ax.invert_xaxis()<span class="op">;</span> ax.set_xlabel(<span class="st">'Wavenumber (cm⁻¹)'</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">'mean SNV'</span>)<span class="op">;</span> ax.legend(fontsize<span class="op">=</span><span class="dv">8</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="18_aloh_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="is-the-band-flattened" class="level2">
+<h2 class="anchored" data-anchor-id="is-the-band-flattened">Is the band flattened?</h2>
+<p>The median depth and height of each band in each set, and, for the pairs, the share in which the Fukushima spectrum has the deeper band than its analogue:</p>
+<div id="k0100017" class="cell" data-fukudata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>depth <span class="op">=</span> {b: {k: band_depth(S, pw, c) <span class="cf">for</span> k, S <span class="kw">in</span> spec.items()} <span class="cf">for</span> b, (c, <span class="op">*</span>_) <span class="kw">in</span> sharp_bands.items()}</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>height <span class="op">=</span> {b: {k: band_height(S, pw, rng_, lo, hi) <span class="cf">for</span> k, S <span class="kw">in</span> spec.items()} <span class="cf">for</span> b, (_, rng_, lo, hi) <span class="kw">in</span> sharp_bands.items()}</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>tab <span class="op">=</span> pd.DataFrame({(b, meas): {k: np.median(v) <span class="cf">for</span> k, v <span class="kw">in</span> d[b].items()} <span class="cf">for</span> b <span class="kw">in</span> sharp_bands <span class="cf">for</span> meas, d <span class="kw">in</span> ((<span class="st">'depth'</span>, depth), (<span class="st">'height'</span>, height))})</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>display(tab.<span class="bu">round</span>(<span class="dv">4</span>))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({b: {<span class="st">'Fukushima Thermo deeper than analogue'</span>: (depth[b][<span class="st">'Fukushima Thermo'</span>] <span class="op">&gt;</span> depth[b][<span class="st">'analogues of Fukushima'</span>]).mean(),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'paired Thermo deeper than analogue'</span>: (depth[b][<span class="st">'paired Thermo'</span>] <span class="op">&gt;</span> depth[b][<span class="st">'analogues of paired'</span>]).mean(),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'paired Bruker deeper than analogue'</span>: (depth[b][<span class="st">'paired Bruker'</span>] <span class="op">&gt;</span> depth[b][<span class="st">'analogues of paired'</span>]).mean(),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'paired Thermo deeper than Bruker'</span>: (depth[b][<span class="st">'paired Thermo'</span>] <span class="op">&gt;</span> depth[b][<span class="st">'paired Bruker'</span>]).mean()} <span class="cf">for</span> b <span class="kw">in</span> sharp_bands}).<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">Al–OH 3620</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">kaolinite 3695</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">depth</th>
+<th data-quarto-table-cell-role="th">height</th>
+<th data-quarto-table-cell-role="th">depth</th>
+<th data-quarto-table-cell-role="th">height</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Fukushima Thermo</th>
+<td>0.0104</td>
+<td>0.1754</td>
+<td>0.0218</td>
+<td>0.6172</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">analogues of Fukushima</th>
+<td>0.0072</td>
+<td>0.1567</td>
+<td>0.0159</td>
+<td>0.2841</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">paired Thermo</th>
+<td>0.0087</td>
+<td>0.1452</td>
+<td>0.0190</td>
+<td>0.5693</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">paired Bruker</th>
+<td>0.0119</td>
+<td>0.1978</td>
+<td>0.0185</td>
+<td>0.4566</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">analogues of paired</th>
+<td>0.0079</td>
+<td>0.1638</td>
+<td>0.0167</td>
+<td>0.3086</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">OSSL</th>
+<td>0.0069</td>
+<td>0.1551</td>
+<td>0.0148</td>
+<td>0.2232</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Al–OH 3620</th>
+<th data-quarto-table-cell-role="th">kaolinite 3695</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Fukushima Thermo deeper than analogue</th>
+<td>0.679</td>
+<td>0.733</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">paired Thermo deeper than analogue</th>
+<td>0.533</td>
+<td>0.579</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">paired Bruker deeper than analogue</th>
+<td>0.709</td>
+<td>0.557</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">paired Thermo deeper than Bruker</th>
+<td>0.117</td>
+<td>0.643</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="does-the-band-track-kex" class="level2">
+<h2 class="anchored" data-anchor-id="does-the-band-track-kex">Does the band track Kex?</h2>
+<p>The Spearman correlation of each band’s depth with Kex, and with clay as a check, in each set. Clay is missing for some samples, and each correlation uses the samples that have the property:</p>
+<div id="k0100020" class="cell" data-fukudata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rho(x, y):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    ok <span class="op">=</span> np.isfinite(y)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> spearmanr(x[ok], y[ok])[<span class="dv">0</span>] <span class="cf">if</span> ok.<span class="bu">sum</span>() <span class="op">&gt;</span> <span class="dv">20</span> <span class="cf">else</span> np.nan</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({(b, p): {k: rho(depth[b][k], props[k][p].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)) <span class="cf">for</span> k <span class="kw">in</span> spec} <span class="cf">for</span> b <span class="kw">in</span> sharp_bands <span class="cf">for</span> p <span class="kw">in</span> (<span class="st">'K'</span>, <span class="st">'clay'</span>)}).<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">Al–OH 3620</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">kaolinite 3695</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">K</th>
+<th data-quarto-table-cell-role="th">clay</th>
+<th data-quarto-table-cell-role="th">K</th>
+<th data-quarto-table-cell-role="th">clay</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Fukushima Thermo</th>
+<td>-0.089</td>
+<td>-0.186</td>
+<td>-0.033</td>
+<td>-0.242</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">analogues of Fukushima</th>
+<td>0.034</td>
+<td>0.381</td>
+<td>0.138</td>
+<td>0.453</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">paired Thermo</th>
+<td>-0.168</td>
+<td>-0.083</td>
+<td>-0.141</td>
+<td>-0.153</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">paired Bruker</th>
+<td>-0.101</td>
+<td>0.062</td>
+<td>-0.070</td>
+<td>0.177</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">analogues of paired</th>
+<td>-0.044</td>
+<td>0.474</td>
+<td>0.056</td>
+<td>0.512</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">OSSL</th>
+<td>-0.131</td>
+<td>0.300</td>
+<td>0.015</td>
+<td>0.460</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>For the paired soils, the Spearman correlation between the Thermo and Bruker depths of each band, which shows whether the two instruments rank the soils alike:</p>
+<div id="k0100022" class="cell" data-fukudata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>{b: <span class="bu">round</span>(<span class="bu">float</span>(spearmanr(depth[b][<span class="st">'paired Thermo'</span>], depth[b][<span class="st">'paired Bruker'</span>])[<span class="dv">0</span>]), <span class="dv">3</span>) <span class="cf">for</span> b <span class="kw">in</span> sharp_bands}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'Al–OH 3620': 0.84, 'kaolinite 3695': 0.655}</code></pre>
+</div>
+</div>
+</section>
+<section id="by-soil-type" class="level2">
+<h2 class="anchored" data-anchor-id="by-soil-type">By soil type</h2>
+<p>The same depths and correlations by Fukushima soil type, for the current selection and their analogues, and for OSSL split into Andisols and other soils. Soil types with fewer than 30 samples with clay are left out of the clay correlations:</p>
+<div id="k0100027" class="cell" data-fukudata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>soil <span class="op">=</span> fprops[<span class="st">'soil'</span>].to_numpy()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> {}</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> pd.Series(soil).dropna().value_counts().index:</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    msk <span class="op">=</span> soil <span class="op">==</span> s</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, pk <span class="kw">in</span> ((<span class="st">'Fukushima Thermo'</span>, fprops), (<span class="st">'analogues of Fukushima'</span>, ossl.loc[f_an])):</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> {<span class="st">'n'</span>: <span class="bu">int</span>(msk.<span class="bu">sum</span>()), <span class="st">'n with clay'</span>: <span class="bu">int</span>(np.isfinite(pk[<span class="st">'clay'</span>].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)[msk]).<span class="bu">sum</span>())}</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> b <span class="kw">in</span> sharp_bands:</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>            r[<span class="ss">f'</span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> depth'</span>] <span class="op">=</span> np.median(depth[b][k][msk])</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> p <span class="kw">in</span> (<span class="st">'clay'</span>, <span class="st">'K'</span>):</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                y <span class="op">=</span> pk[p].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)[msk]</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                ok <span class="op">=</span> np.isfinite(y)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>                r[<span class="ss">f'</span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> vs </span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">'</span>] <span class="op">=</span> spearmanr(depth[b][k][msk][ok], y[ok])[<span class="dv">0</span>] <span class="cf">if</span> ok.<span class="bu">sum</span>() <span class="op">&gt;=</span> <span class="dv">30</span> <span class="cf">else</span> np.nan</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        rows[s, k] <span class="op">=</span> r</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>oa <span class="op">=</span> props[<span class="st">'OSSL'</span>][<span class="st">'andisol'</span>].to_numpy()</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s, msk <span class="kw">in</span> ((<span class="st">'Andisols'</span>, oa), (<span class="st">'other soils'</span>, <span class="op">~</span>oa)):</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> {<span class="st">'n'</span>: <span class="bu">int</span>(msk.<span class="bu">sum</span>()), <span class="st">'n with clay'</span>: <span class="bu">int</span>(np.isfinite(props[<span class="st">'OSSL'</span>][<span class="st">'clay'</span>].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)[msk]).<span class="bu">sum</span>())}</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> b <span class="kw">in</span> sharp_bands:</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>        r[<span class="ss">f'</span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> depth'</span>] <span class="op">=</span> np.median(depth[b][<span class="st">'OSSL'</span>][msk])</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> p <span class="kw">in</span> (<span class="st">'clay'</span>, <span class="st">'K'</span>):</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>            y <span class="op">=</span> props[<span class="st">'OSSL'</span>][p].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)[msk]</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>            ok <span class="op">=</span> np.isfinite(y)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>            r[<span class="ss">f'</span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> vs </span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">'</span>] <span class="op">=</span> spearmanr(depth[b][<span class="st">'OSSL'</span>][msk][ok], y[ok])[<span class="dv">0</span>] <span class="cf">if</span> ok.<span class="bu">sum</span>() <span class="op">&gt;=</span> <span class="dv">30</span> <span class="cf">else</span> np.nan</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    rows[s, <span class="st">'OSSL'</span>] <span class="op">=</span> r</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(rows).T.<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">n</th>
+<th data-quarto-table-cell-role="th">n with clay</th>
+<th data-quarto-table-cell-role="th">Al–OH 3620 depth</th>
+<th data-quarto-table-cell-role="th">Al–OH 3620 vs clay</th>
+<th data-quarto-table-cell-role="th">Al–OH 3620 vs K</th>
+<th data-quarto-table-cell-role="th">kaolinite 3695 depth</th>
+<th data-quarto-table-cell-role="th">kaolinite 3695 vs clay</th>
+<th data-quarto-table-cell-role="th">kaolinite 3695 vs K</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th rowspan="2" data-quarto-table-cell-role="th" data-valign="top">Lowland soil</th>
+<th data-quarto-table-cell-role="th">Fukushima Thermo</th>
+<td>904.0</td>
+<td>631.0</td>
+<td>0.011</td>
+<td>-0.307</td>
+<td>-0.125</td>
+<td>0.022</td>
+<td>-0.354</td>
+<td>-0.065</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">analogues of Fukushima</th>
+<td>904.0</td>
+<td>895.0</td>
+<td>0.007</td>
+<td>0.284</td>
+<td>0.061</td>
+<td>0.016</td>
+<td>0.388</td>
+<td>0.183</td>
+</tr>
+<tr class="odd">
+<th rowspan="2" data-quarto-table-cell-role="th" data-valign="top">Andosols</th>
+<th data-quarto-table-cell-role="th">Fukushima Thermo</th>
+<td>213.0</td>
+<td>146.0</td>
+<td>0.009</td>
+<td>0.137</td>
+<td>0.095</td>
+<td>0.019</td>
+<td>0.055</td>
+<td>0.139</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">analogues of Fukushima</th>
+<td>213.0</td>
+<td>212.0</td>
+<td>0.007</td>
+<td>0.532</td>
+<td>0.085</td>
+<td>0.014</td>
+<td>0.542</td>
+<td>0.117</td>
+</tr>
+<tr class="odd">
+<th rowspan="2" data-quarto-table-cell-role="th" data-valign="top">Forest soil</th>
+<th data-quarto-table-cell-role="th">Fukushima Thermo</th>
+<td>137.0</td>
+<td>96.0</td>
+<td>0.011</td>
+<td>-0.108</td>
+<td>-0.156</td>
+<td>0.022</td>
+<td>-0.201</td>
+<td>-0.126</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">analogues of Fukushima</th>
+<td>137.0</td>
+<td>136.0</td>
+<td>0.007</td>
+<td>0.606</td>
+<td>-0.053</td>
+<td>0.016</td>
+<td>0.589</td>
+<td>0.056</td>
+</tr>
+<tr class="odd">
+<th rowspan="2" data-quarto-table-cell-role="th" data-valign="top">Peat soil</th>
+<th data-quarto-table-cell-role="th">Fukushima Thermo</th>
+<td>66.0</td>
+<td>45.0</td>
+<td>0.009</td>
+<td>-0.111</td>
+<td>-0.268</td>
+<td>0.021</td>
+<td>-0.199</td>
+<td>-0.215</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">analogues of Fukushima</th>
+<td>66.0</td>
+<td>62.0</td>
+<td>0.008</td>
+<td>0.536</td>
+<td>0.045</td>
+<td>0.016</td>
+<td>0.636</td>
+<td>0.097</td>
+</tr>
+<tr class="odd">
+<th rowspan="2" data-quarto-table-cell-role="th" data-valign="top">Red yellow soil</th>
+<th data-quarto-table-cell-role="th">Fukushima Thermo</th>
+<td>46.0</td>
+<td>38.0</td>
+<td>0.012</td>
+<td>0.321</td>
+<td>-0.091</td>
+<td>0.023</td>
+<td>-0.057</td>
+<td>-0.056</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">analogues of Fukushima</th>
+<td>46.0</td>
+<td>45.0</td>
+<td>0.008</td>
+<td>0.449</td>
+<td>-0.108</td>
+<td>0.017</td>
+<td>0.455</td>
+<td>0.013</td>
+</tr>
+<tr class="odd">
+<th rowspan="2" data-quarto-table-cell-role="th" data-valign="top">Glay soil</th>
+<th data-quarto-table-cell-role="th">Fukushima Thermo</th>
+<td>16.0</td>
+<td>13.0</td>
+<td>0.009</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.021</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">analogues of Fukushima</th>
+<td>16.0</td>
+<td>16.0</td>
+<td>0.007</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.017</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Andisols</th>
+<th data-quarto-table-cell-role="th">OSSL</th>
+<td>201.0</td>
+<td>179.0</td>
+<td>0.004</td>
+<td>0.468</td>
+<td>0.033</td>
+<td>0.008</td>
+<td>0.442</td>
+<td>0.112</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">other soils</th>
+<th data-quarto-table-cell-role="th">OSSL</th>
+<td>9799.0</td>
+<td>6517.0</td>
+<td>0.007</td>
+<td>0.284</td>
+<td>-0.132</td>
+<td>0.015</td>
+<td>0.451</td>
+<td>0.014</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The soil types recorded for the paired soils:</p>
+<div id="k0100029" class="cell" data-fukudata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pprops[<span class="st">'soil'</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>).to_dict()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'Lowland soil': 189,
+ 'Andosols': 114,
+ 'Forest soil': 34,
+ 'Red yellow soil': 18,
+ 'Peat soil': 16,
+ 'Glay soil': 4}</code></pre>
+</div>
+</div>
+</section>
+<section id="findings" class="level2">
+<h2 class="anchored" data-anchor-id="findings">Findings</h2>
+<p>The Al–OH band near 3620 cm⁻¹ is not flattened in the Fukushima spectra. Its median second-derivative depth is 0.0104 in the Fukushima Thermo spectra, against 0.0072 in their OSSL analogues and 0.0069 in OSSL. It is deeper than in the analogue for 68% of the soils. The kaolinite band at 3695 cm⁻¹ is also deeper (0.0218 against 0.0159, in 73% of the pairs). The height above a local baseline gives the same order. For the paired soils, the Bruker spectra show the Al–OH band more deeply than the Thermo spectra (0.0119 against 0.0087), but the two instruments rank the soils alike: their depths correlate at 0.84 for the Al–OH band and 0.66 for the kaolinite band. A broad absorption hiding the band does not explain the transfer failure.</p>
+<p>On its own, the depth of the Al–OH band does not track Kex, in OSSL either. Its Spearman correlation with Kex is -0.13 in OSSL, 0.03 in the analogues and -0.09 in the Fukushima Thermo spectra. The OSSL model’s reliance on the 3600 to 3700 cm⁻¹ region (<code>17_importance</code>) therefore goes through combinations with other bands, not through this band’s depth alone.</p>
+<p>In OSSL, both bands track clay, and in Fukushima they do not. The depth of the Al–OH band correlates with clay at 0.30 in OSSL and 0.38 in the analogues of the Fukushima soils, and at -0.19 in the Fukushima Thermo spectra. For the kaolinite band, the figures are 0.46, 0.45 and -0.24. For the paired soils, the correlations with clay are near zero on both instruments: -0.08 and 0.06 for the Al–OH band on the Thermo and Bruker spectra, against 0.47 in their analogues. Because the Bruker spectra show the same loss, the instrument does not explain it.</p>
+<p>The relation between the clay-mineral bands and the soil properties differs between Fukushima and OSSL soils with the same properties. Two explanations fit: different clay mineralogy, such as more allophane and imogolite in Andosols, which give no sharp band near 3620 cm⁻¹, or a different clay measurement, since Andosols disperse poorly and their clay content tends to be underestimated. Clay is available for 972 of the 1,385 Fukushima soils.</p>
+<p>The split by soil type points away from the Andosols. The decoupling is strongest in the Lowland soils, the largest group, with 631 samples with clay. There, the depth of the Al–OH band correlates with clay at -0.31, and the kaolinite band at -0.35, against 0.28 and 0.39 in their analogues. With that many samples, a Spearman correlation has a standard error of about 0.04. The 146 Andosols with clay keep a weak positive relation: 0.14 for the Al–OH band and 0.06 for the kaolinite band, against 0.53 and 0.54 in their analogues. Forest and Peat soils have smaller samples and correlations of -0.11 to -0.20. In every soil type, the analogues show correlations of 0.28 to 0.64.</p>
+<p>The Fukushima Andosols have slightly shallower bands than the Lowland soils (median Al–OH depth 0.009 against 0.011). The OSSL Andisols have much shallower bands than other OSSL soils (0.004 against 0.007), as allophane and imogolite would give. But the Fukushima Andosols are not where the relation with clay breaks most. Allophane in Andosols therefore does not explain the decoupling. In the Lowland soils, which are mostly paddy fields, more clay goes with shallower sharp clay-mineral bands. What causes this, in mineralogy or in how clay was measured, these data do not show.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/franckalbinet\.github\.io\/ossl-fuku-transfer");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/franckalbinet/ossl-fuku-transfer/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
