@@ -19,7 +19,7 @@ OSSL models fail on the Fukushima spectra without retraining. Without fine-tunin
 
 Trained on Fukushima labels, OSSL helps Kex a little on fields already seen in training, and not at all on new fields. On the Cs137 study’s test samples, full fine-tuning gives Kex R² 0.41 against 0.37 for a CNN trained on Fukushima only. For CEC it gives 0.74 against 0.71. When whole fields are held out, ridge regression on frozen OSSL features gives Kex R² 0.26 against 0.28 for ridge regression on the spectra.
 
-For the Cs-137 ratio, frozen OSSL features help on new fields too. Ridge regression on block 4 of the OSSL Kex and CEC models gives R² 0.57 on new fields, against 0.52 on the spectra. The same layers with random weights give 0.52.
+For the Cs-137 ratio, frozen OSSL features help on new fields, but only slightly. All three models below use ridge regression, scored with folds grouped by field; only the input changes. Ridge on the preprocessed spectra (SNV, then a Savitzky-Golay first derivative) gives R² 0.52. Ridge on the activations of block 4 of the two CNNs trained on OSSL to predict Kex and CEC, with their weights frozen, gives R² 0.57. Ridge on block 4 of the same CNNs with random weights gives R² 0.52, the same as the spectra. The gain of 0.05 (bootstrap interval over fields 0.017 to 0.077) therefore comes from what the networks learned on OSSL, not from the network architecture. It cuts the unexplained variance from 48% to 43%.
 
 Scores on the Cs137 study’s split are optimistic. 89% of its 398 test samples come from a field that also has samples in training. Holding out whole fields lowers Kex R² by 0.10 to 0.13 and the Cs-137 ratio by 0.05 to 0.08.
 
