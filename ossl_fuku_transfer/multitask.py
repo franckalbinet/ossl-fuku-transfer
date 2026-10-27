@@ -8,11 +8,10 @@ Docs: https://franckalbinet.github.io/ossl-fuku-transfer/multitask.html.md"""
 __all__ = ['mt_tasks', 'mt_targets', 'masked_mse', 'mt_model', 'load_mt', 'pretrain_mt']
 
 # %% ../nbs/11_multitask.ipynb #m0000003
+from functools import partial
 import numpy as np, pandas as pd, torch
 from torch.nn import Linear
-from fastai.torch_core import set_seed
-import fastai.callback.schedule
-from soilspecdl.all import get_spectral_dls, get_splitter, spectral_learner, BatchSNV, SpectralCNN
+from soilspecdl.all import SpectralCNN, train_or_load, load_weights
 from .data import shared_wns
 from .transfer import model_dir
 
@@ -57,9 +56,7 @@ def mt_model(
 # %% ../nbs/11_multitask.ipynb #m0000016
 def load_mt(fname, n_tasks):
     "Load the weights that `pretrain_mt` saved under `fname` into `mt_model(n_tasks)`"
-    model = mt_model(n_tasks)
-    model.load_state_dict(torch.load(model_dir()/f'{fname}.pth', map_location='cpu'))
-    return model
+    return load_weights(model_dir()/f'{fname}.pth', partial(mt_model, n_tasks))
 
 def pretrain_mt(
     X, # Preprocessed OSSL spectra
@@ -70,12 +67,5 @@ def pretrain_mt(
     lr=1e-3, # Maximum learning rate
 ):
     "Train `mt_model` on all tasks of `Y`, or load the weights that an earlier run saved under `fname`"
-    fn = model_dir()/f'{fname}.pth'
-    if not fn.exists():
-        set_seed(seed)
-        dls, _ = get_spectral_dls(X, Y, shared_wns, splitter=get_splitter(0.9, 0.1, seed=seed), batch_tfms=[BatchSNV()])
-        learn = spectral_learner(dls, mt_model(Y.shape[1]), loss_func=masked_mse, metrics=[])
-        with learn.no_bar(), learn.no_logging(): learn.fit_one_cycle(epochs, lr_max=lr)
-        torch.save(learn.model.state_dict(), fn)
-        pd.DataFrame(learn.recorder.values, columns=learn.recorder.metric_names[1:-1]).to_csv(fn.with_suffix('.csv'), index_label='epoch')
-    return load_mt(fname, Y.shape[1])
+    return train_or_load(model_dir()/f'{fname}.pth', X, Y, shared_wns, model_fn=partial(mt_model, Y.shape[1]), epochs=epochs, lr=lr,
+        seed=seed, loss_func=masked_mse, metrics=[])

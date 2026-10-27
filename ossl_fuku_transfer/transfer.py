@@ -20,7 +20,7 @@ import fastai.callback.schedule
 from fastai.torch_core import set_seed
 from soilspectfm.preprocessing import SNV, SavitzkyGolay
 from soilspecdl.all import (get_spectral_dls, get_splitter, get_mask_splitter, spectral_learner, SpectralCNN, BatchSNV, cross_validate,
-    train_or_load, adabn, test_preds, regression_scores)
+    train_or_load, load_weights, adabn, test_preds, regression_scores)
 from .data import data_path, shared_wns
 
 # %% ../nbs/02_transfer.ipynb #t0000007
@@ -49,7 +49,7 @@ def pretrain(
 
 def load_pretrained(fname)->SpectralCNN: # The model, on the CPU
     "Load the weights that `pretrain` saved under `fname`"
-    return train_or_load(model_dir()/f'{fname}.pth', None, None, shared_wns)
+    return load_weights(model_dir()/f'{fname}.pth')
 
 def pretrain_history(fname)->pd.DataFrame: # One row per epoch: losses and validation R²
     "The training history that `pretrain` saved under `fname`"
