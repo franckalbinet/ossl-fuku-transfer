@@ -42,7 +42,7 @@ version = {attr = "ossl_fuku_transfer.__version__"}
 include = ["ossl_fuku_transfer"]
 
 [tool.nbdev]
-tst_flags = "notest fukudata"
+tst_flags = "notest fukudata rtdata"
 custom_sidebar = true
 title = 'OSSL to Fukushima transfer'
 

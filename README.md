@@ -81,6 +81,10 @@ On new fields, Kex can hardly be predicted within paddy fields. Ridge regression
 | Notebook | Question | Answer |
 |----|----|----|
 | [`20_grouped_cv`](https://franckalbinet.github.io/ossl-fuku-transfer/grouped_cv.html) | How well do the models predict fields they have never seen, by soil type and field type? | R² drops by 0.05 to 0.13. For Kex, OSSL features add nothing. For the Cs-137 ratio they add 0.05 R². Within paddy fields, Kex can hardly be predicted. |
+| [`21_iaea`](https://franckalbinet.github.io/ossl-fuku-transfer/iaea.html) | What is the broad shift of the Thermo spectra, what does its strength depend on, and does it harm the predictions? | It has the shape of IAEA’s ring-trial shift. Its strength follows the scan session: it stepped up between July and August 2024, and again before operator 3’s scans of 2026. It lowers OSSL transfer but does not explain its failure, and it does not harm models trained on Fukushima. Removing it corrects the bias, not the ranking. |
+| [`22_regions`](https://franckalbinet.github.io/ossl-fuku-transfer/regions.html) | Do the models that predict well rely on the same spectral regions? | The Cs-137 ratio model and the OSSL Kex model on OSSL both depend most on the clay-mineral O–H region near 3629–3749 cm⁻¹. The Kex model trained on Fukushima depends on it least. Differences between models exceed those between seeds. |
+| [`23_field_baselines`](https://franckalbinet.github.io/ossl-fuku-transfer/field_baselines.html) | Do the spectra beat a field’s own wet chemistry, its soil type and land use, or its neighbouring fields? | 85% of the Cs-137 ratio’s variance and 76% of Kex’s lies between fields. Where a field has wet chemistry, its own samples beat the spectra, which add nothing to them. Where it has none, the spectra beat the baselines. For the Cs-137 ratio, averaging block 4 with the neighbouring fields reaches R² 0.61. Kex shows no pattern in space or soil type. |
+| [`24_error_structure`](https://franckalbinet.github.io/ossl-fuku-transfer/error_structure.html) | Are the model’s errors where it has seen few similar samples, and what do the field offsets in its errors follow? | No: novelty, bootstrap disagreement and predicted extremes barely flag the errors. The errors are field offsets and a pull towards the mean. The offsets follow location a little, and land use for Kex. Over 80% of their variance is unexplained by the data available. |
 
 ## Questions for the Fukushima data team
 
@@ -93,6 +97,7 @@ On new fields, Kex can hardly be predicted within paddy fields. Ridge regression
 7.  Sample preparation: how were the samples dried, ground and, if at all, diluted for each instrument? Did the Bruker and Thermo scans of the paired soils use the same prepared material? The answers decide which spectral corrections are realistic.
 8.  Instruments: which accessory, resolution and purging did the Thermo Nicolet use? Which Bruker instrument and accessory measured the paired soils?
 9.  Doubtful scans: `00_data` leaves out 12 samples whose scans disagree between operators or between file exports. Which scans are right? The answer can bring these samples back.
+10. Measurement sessions: the strength of the broad Thermo shift stepped up between July and August 2024, and again between January 2025 and February 2026 (`21_iaea`). Was the instrument serviced, realigned or moved then, or did the loading of the samples change, for example by opening the chamber from above? Were the samples dried or stored differently?
 
 ## Set-up
 

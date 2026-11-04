@@ -36,3 +36,9 @@ website:
       - section: "Scores on new fields"
         contents:
           - 20_grouped_cv.ipynb
+          - 23_field_baselines.ipynb
+          - 24_error_structure.ipynb
+      - section: "Measurement and importance"
+        contents:
+          - 21_iaea.ipynb
+          - 22_regions.ipynb
