@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="The broad shift of the IAEA Thermo spectra: its shape, how it varies between operators, whether it harms the predictions, and whether removing it helps">
+
+<title>The IAEA artefact – OSSL to Fukushima transfer</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-25d22b340971a39de180f7b8257233f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="The IAEA artefact – OSSL to Fukushima transfer">
+<meta property="og:description" content="The broad shift of the IAEA Thermo spectra: its shape, how it varies between operators, whether it harms the predictions, and whether removing it helps">
+<meta property="og:image" content="https://franckalbinet.github.io/ossl-fuku-transfer/21_iaea_files/figure-html/cell-5-output-1.png">
+<meta property="og:site_name" content="OSSL to Fukushima transfer">
+<meta property="og:image:height" content="723">
+<meta property="og:image:width" content="2223">
+<meta name="twitter:title" content="The IAEA artefact – OSSL to Fukushima transfer">
+<meta name="twitter:description" content="The broad shift of the IAEA Thermo spectra: its shape, how it varies between operators, whether it harms the predictions, and whether removing it helps">
+<meta name="twitter:image" content="https://franckalbinet.github.io/ossl-fuku-transfer/21_iaea_files/figure-html/cell-5-output-1.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="Site">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">OSSL to Fukushima transfer</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" aria-label="Toolbar">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./iaea.html">Measurement and importance</a></li><li class="breadcrumb-item"><a href="./iaea.html">The IAEA artefact</a></li></ol></nav>
+        <a class="flex-grow-1" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto" aria-label="Section">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-controls="quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-1-label">Data and spectra</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-1" aria-labelledby="quarto-sidebar-section-1-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fukushima data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OSSL and Fukushima spectra</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-controls="quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-2-label">Kex and CEC</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-2" aria-labelledby="quarto-sidebar-section-2-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./transfer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transfer experiments</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./kex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kex</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cec.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CEC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./learning_curve.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Learning curve</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./block4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Block 4 transfer</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-controls="quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-3-label">Inside the CNN</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-3" aria-labelledby="quarto-sidebar-section-3-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dynamics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Training dynamics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inside_transfer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inside transfer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./importance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wavenumber importance</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-controls="quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-4-label">Why the transfer is limited</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-4" aria-labelledby="quarto-sidebar-section-4-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./paired.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Paired spectra</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./wetchem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wet chemistry</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./epo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EPO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./augment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Augmentation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vapour.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Water vapour</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./moisture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sample moisture</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./aloh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Al–OH band</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-controls="quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-5-label">Cs-137 ratio</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-5" aria-labelledby="quarto-sidebar-section-5-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cs137.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cs-137 ratio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multitask.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multi-task pretraining</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cs137_inside.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inside the Cs-137 models</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-controls="quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-6-label">Scores on new fields</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-6" aria-labelledby="quarto-sidebar-section-6-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./grouped_cv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grouped cross-validation by field</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./field_baselines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Field baselines</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./error_structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Error structure</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-controls="quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-7-label">Measurement and importance</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-7" aria-labelledby="quarto-sidebar-section-7-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./iaea.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">The IAEA artefact</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Where the models look</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-artefact" id="toc-the-artefact" class="nav-link active" data-scroll-target="#the-artefact">The artefact</a></li>
+  <li><a href="#strength-by-operator" id="toc-strength-by-operator" class="nav-link" data-scroll-target="#strength-by-operator">Strength by operator</a></li>
+  <li><a href="#strength-by-scan-date" id="toc-strength-by-scan-date" class="nav-link" data-scroll-target="#strength-by-scan-date">Strength by scan date</a></li>
+  <li><a href="#harm-to-transfer-from-ossl" id="toc-harm-to-transfer-from-ossl" class="nav-link" data-scroll-target="#harm-to-transfer-from-ossl">Harm to transfer from OSSL</a></li>
+  <li><a href="#removing-the-artefact" id="toc-removing-the-artefact" class="nav-link" data-scroll-target="#removing-the-artefact">Removing the artefact</a></li>
+  <li><a href="#harm-to-models-trained-on-fukushima" id="toc-harm-to-models-trained-on-fukushima" class="nav-link" data-scroll-target="#harm-to-models-trained-on-fukushima">Harm to models trained on Fukushima</a></li>
+  <li><a href="#findings" id="toc-findings" class="nav-link" data-scroll-target="#findings">Findings</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/franckalbinet/ossl-fuku-transfer/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="iaea.html.md"><i class="bi bi-file-code"></i>Markdown</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./iaea.html">Measurement and importance</a></li><li class="breadcrumb-item"><a href="./iaea.html">The IAEA artefact</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">The IAEA artefact</h1>
+</div>
+
+<div>
+  <div class="description">
+    The broad shift of the IAEA Thermo spectra: its shape, how it varies between operators, whether it harms the predictions, and whether removing it helps
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div id="30804b9e" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> spearmanr</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastcore.test <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> soilspecdata.<span class="bu">all</span> <span class="im">import</span> load_ossl</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> soilspecdata.datasets.ringtrial <span class="im">import</span> load_ringtrial</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> soilspecdl.<span class="bu">all</span> <span class="im">import</span> get_splitter, group_folds, predict, regression_scores</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ossl_fuku_transfer.data <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ossl_fuku_transfer.transfer <span class="im">import</span> preprocessings, load_pretrained</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ossl_fuku_transfer.grouped <span class="im">import</span> oof_preds</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ossl_fuku_transfer.epo <span class="im">import</span> epo_project</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ossl_fuku_transfer.inside <span class="im">import</span> layer_features</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/franckalbinet/aai-ws/.venv/lib/python3.13/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(</code></pre>
+</div>
+</div>
+<p>The cells that read the Fukushima data are marked <code>#| fukudata</code> and <code>#| rtdata</code>, because they read the Fukushima data and the ring trial. The outputs on this page come from a local run.</p>
+<p>After SNV, the Thermo spectra of the Fukushima soils are higher than their OSSL analogues at 2800–3700 cm⁻¹ and lower below 2000 cm⁻¹ (<code>16_moisture</code>). <code>ossl-rt-transfer/10_where_it_fails</code> found the same shift in the ring-trial scans of the IAEA Nicolet, on soils that Woodwell prepared centrally, and on almost every soil. This notebook measures the shift on the Fukushima soils that both instruments scanned, finds what its strength depends on, and tests whether it harms the predictions and whether removing it helps.</p>
+<p>The OSSL models also fail on the Bruker spectra of the same soils (<code>05_paired</code>). A correction of the Thermo spectra can therefore at most bring the predictions to the Bruker level. The tests report that ceiling.</p>
+<section id="the-artefact" class="level2">
+<h2 class="anchored" data-anchor-id="the-artefact">The artefact</h2>
+<p>All spectra on the 2 cm⁻¹ grid from 650 to 3996 cm⁻¹, the range of the Bruker exports, with SNV. The artefact profile is the mean difference between the Thermo and Bruker spectra of the same soils, and the ring-trial profile the mean difference between the IAEA and KSSL spectra of the 70 ring-trial soils:</p>
+<div id="00fcaa7c" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pw <span class="op">=</span> shared_wns[:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>snv <span class="op">=</span> <span class="kw">lambda</span> A: (A <span class="op">-</span> A.mean(<span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)) <span class="op">/</span> A.std(<span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>pids <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">sorted</span>(<span class="bu">set</span>(bruker_files()) <span class="op">&amp;</span> <span class="bu">set</span>(spa_files()), key<span class="op">=</span><span class="bu">int</span>) <span class="cf">if</span> i <span class="kw">not</span> <span class="kw">in</span> excluded]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>br, th <span class="op">=</span> load_bruker(pw, pids), load_fuku(pw, pids)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>D_tb <span class="op">=</span> snv(th.spectra) <span class="op">-</span> snv(br.spectra)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>rt <span class="op">=</span> load_ringtrial(data_path()<span class="op">/</span><span class="st">'ringtrial'</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>rt_ids <span class="op">=</span> <span class="bu">sorted</span>(<span class="bu">set</span>(rt[<span class="st">'IAEA_aug2022'</span>].sample_ids) <span class="op">&amp;</span> <span class="bu">set</span>(rt[<span class="st">'KSSL'</span>].sample_ids))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> on(sp, ids): <span class="cf">return</span> sp.spectra[pd.Index(sp.sample_ids).get_indexer(ids)][:, np.isin(sp.wavenumbers, pw)]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Ria, Rks <span class="op">=</span> on(rt[<span class="st">'IAEA_aug2022'</span>], rt_ids), on(rt[<span class="st">'KSSL'</span>], rt_ids)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>D_rt <span class="op">=</span> snv(Ria) <span class="op">-</span> snv(Rks)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>p_tb, p_rt <span class="op">=</span> D_tb.mean(<span class="dv">0</span>), D_rt.mean(<span class="dv">0</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(pids), <span class="bu">len</span>(rt_ids), np.corrcoef(p_tb, p_rt)[<span class="dv">0</span>, <span class="dv">1</span>].<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>(376, 70, np.float64(0.872))</code></pre>
+</div>
+</div>
+<div id="a6206171" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>regions <span class="op">=</span> {<span class="st">'650–1300'</span>: (<span class="dv">650</span>, <span class="dv">1300</span>), <span class="st">'1300–1610'</span>: (<span class="dv">1300</span>, <span class="dv">1610</span>), <span class="st">'H–O–H bend 1610–1650'</span>: (<span class="dv">1610</span>, <span class="dv">1650</span>), <span class="st">'1650–2000'</span>: (<span class="dv">1650</span>, <span class="dv">2000</span>),</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>           <span class="st">'2000–2800'</span>: (<span class="dv">2000</span>, <span class="dv">2800</span>), <span class="st">'2800–3200'</span>: (<span class="dv">2800</span>, <span class="dv">3200</span>), <span class="st">'O–H stretch 3200–3450'</span>: (<span class="dv">3200</span>, <span class="dv">3450</span>), <span class="st">'3450–3700'</span>: (<span class="dv">3450</span>, <span class="dv">3700</span>), <span class="st">'3700–3996'</span>: (<span class="dv">3700</span>, <span class="dv">3996</span>)}</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> by_region(D, f): <span class="cf">return</span> pd.Series({k: f(D[:, (pw <span class="op">&gt;=</span> lo) <span class="op">&amp;</span> (pw <span class="op">&lt;=</span> hi)]) <span class="cf">for</span> k, (lo, hi) <span class="kw">in</span> regions.items()})</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({<span class="st">'Thermo − Bruker, mean'</span>: by_region(D_tb, np.mean), <span class="st">'share higher'</span>: by_region(D_tb, <span class="kw">lambda</span> d: (d <span class="op">&gt;</span> <span class="dv">0</span>).mean()),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">'IAEA − KSSL, mean'</span>: by_region(D_rt, np.mean), <span class="st">'share higher '</span>: by_region(D_rt, <span class="kw">lambda</span> d: (d <span class="op">&gt;</span> <span class="dv">0</span>).mean())}).<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Thermo − Bruker, mean</th>
+<th data-quarto-table-cell-role="th">share higher</th>
+<th data-quarto-table-cell-role="th">IAEA − KSSL, mean</th>
+<th data-quarto-table-cell-role="th">share higher</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">650–1300</th>
+<td>-1.958</td>
+<td>0.002</td>
+<td>-0.534</td>
+<td>0.104</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1300–1610</th>
+<td>-0.644</td>
+<td>0.001</td>
+<td>-0.373</td>
+<td>0.105</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">H–O–H bend 1610–1650</th>
+<td>-0.430</td>
+<td>0.001</td>
+<td>-0.389</td>
+<td>0.018</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1650–2000</th>
+<td>0.058</td>
+<td>0.729</td>
+<td>-0.065</td>
+<td>0.412</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2000–2800</th>
+<td>0.463</td>
+<td>0.952</td>
+<td>0.030</td>
+<td>0.471</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2800–3200</th>
+<td>1.013</td>
+<td>1.000</td>
+<td>0.442</td>
+<td>0.996</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">O–H stretch 3200–3450</th>
+<td>1.084</td>
+<td>1.000</td>
+<td>0.567</td>
+<td>1.000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3450–3700</th>
+<td>1.111</td>
+<td>1.000</td>
+<td>0.633</td>
+<td>0.994</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">3700–3996</th>
+<td>0.495</td>
+<td>0.860</td>
+<td>0.002</td>
+<td>0.359</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="7a48e52e" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">3.5</span>), layout<span class="op">=</span><span class="st">'constrained'</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ax.plot(pw, p_tb, lw<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">'Thermo − Bruker, Fukushima'</span>)<span class="op">;</span> ax.plot(pw, p_rt, lw<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">'IAEA − KSSL, ring trial'</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ax.axhline(<span class="dv">0</span>, c<span class="op">=</span><span class="st">'grey'</span>, lw<span class="op">=</span><span class="fl">0.5</span>)<span class="op">;</span> ax.invert_xaxis()<span class="op">;</span> ax.set_xlabel(<span class="st">'Wavenumber (cm⁻¹)'</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">'SNV difference'</span>)<span class="op">;</span> ax.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="21_iaea_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="strength-by-operator" class="level2">
+<h2 class="anchored" data-anchor-id="strength-by-operator">Strength by operator</h2>
+<p>The strength of the artefact in a scan is the least-squares coefficient of its difference from the Bruker spectrum of the same soil on the profile <code>p_tb</code>, so the mean strength over the paired soils is 1. The strength of each replicate, against the mean Bruker spectrum of its soil, splits the variation into a part within samples, from loading the cup, and a part between samples:</p>
+<div id="6893e32e" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>strength <span class="op">=</span> <span class="kw">lambda</span> D: D <span class="op">@</span> p_tb <span class="op">/</span> (p_tb <span class="op">@</span> p_tb)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> strength(D_tb)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>reps <span class="op">=</span> load_replicates(pw, pids)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>s_rep <span class="op">=</span> pd.Series(strength(snv(reps.spectra) <span class="op">-</span> snv(br.spectra)[pd.Index(br.sample_ids).get_indexer(reps.sample_ids)]), index<span class="op">=</span>reps.sample_ids)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>test_close(s.mean(), <span class="dv">1</span>, eps<span class="op">=</span><span class="fl">1e-9</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>pd.Series({<span class="st">'within samples'</span>: s_rep.groupby(level<span class="op">=</span><span class="dv">0</span>).var().mean(), <span class="st">'between samples'</span>: s_rep.groupby(level<span class="op">=</span><span class="dv">0</span>).mean().var()}, name<span class="op">=</span><span class="st">'variance'</span>).<span class="bu">round</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>within samples     0.0029
+between samples    0.0667
+Name: variance, dtype: float64</code></pre>
+</div>
+</div>
+<p><code>sample_batches</code> numbers the folders of the Thermo files, one per operator: batch 1 is operator 1’s, batch 2 operator 2’s and batch 3 operator 3’s. The strength by batch, by year of sampling and by soil type, and its Spearman correlation with soil properties. The ring-trial strength uses the same profile:</p>
+<div id="5e605f10" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ops <span class="op">=</span> {<span class="st">'batch 1'</span>: <span class="st">'operator 1'</span>, <span class="st">'batch 2'</span>: <span class="st">'operator 2'</span>, <span class="st">'batch 3'</span>: <span class="st">'operator 3'</span>}</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>meta <span class="op">=</span> pd.DataFrame({<span class="st">'strength'</span>: s, <span class="st">'operator'</span>: pd.Series(sample_batches(pids)).<span class="bu">map</span>(ops).values}, index<span class="op">=</span>pids).join(th.source.reindex(pids)[[<span class="st">'year'</span>, <span class="st">'Soil_type_describe'</span>, <span class="st">'soil_C'</span>, <span class="st">'soil_CEC'</span>, <span class="st">'clay'</span>]])</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>display(pd.concat({g: meta.groupby(g).strength.agg([<span class="st">'count'</span>, <span class="st">'mean'</span>, <span class="st">'std'</span>]) <span class="cf">for</span> g <span class="kw">in</span> [<span class="st">'operator'</span>, <span class="st">'year'</span>]}).<span class="bu">round</span>(<span class="dv">3</span>))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>s_ring <span class="op">=</span> D_rt <span class="op">@</span> p_tb <span class="op">/</span> (p_tb <span class="op">@</span> p_tb)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>pd.Series({<span class="op">**</span>{<span class="ss">f'ρ with </span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">'</span>: spearmanr(meta.strength, pd.to_numeric(meta[c], errors<span class="op">=</span><span class="st">'coerce'</span>), nan_policy<span class="op">=</span><span class="st">'omit'</span>)[<span class="dv">0</span>] <span class="cf">for</span> c <span class="kw">in</span> [<span class="st">'soil_C'</span>, <span class="st">'soil_CEC'</span>, <span class="st">'clay'</span>]},</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>           <span class="st">'ring trial, IAEA, mean strength'</span>: s_ring.mean()}).<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">operator</th>
+<th data-quarto-table-cell-role="th">operator 1</th>
+<td>12</td>
+<td>0.317</td>
+<td>0.084</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">operator 2</th>
+<td>48</td>
+<td>0.450</td>
+<td>0.087</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">operator 3</th>
+<td>316</td>
+<td>1.109</td>
+<td>0.057</td>
+</tr>
+<tr class="even">
+<th rowspan="7" data-quarto-table-cell-role="th" data-valign="top">year</th>
+<th data-quarto-table-cell-role="th">2016.0</th>
+<td>14</td>
+<td>0.469</td>
+<td>0.060</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2017.0</th>
+<td>12</td>
+<td>0.480</td>
+<td>0.075</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2018.0</th>
+<td>12</td>
+<td>0.317</td>
+<td>0.084</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2019.0</th>
+<td>11</td>
+<td>0.490</td>
+<td>0.053</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2020.0</th>
+<td>11</td>
+<td>0.353</td>
+<td>0.089</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2022.0</th>
+<td>161</td>
+<td>1.092</td>
+<td>0.051</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2023.0</th>
+<td>155</td>
+<td>1.128</td>
+<td>0.056</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>ρ with soil_C                     -0.143
+ρ with soil_CEC                    0.010
+ρ with clay                        0.084
+ring trial, IAEA, mean strength    0.332
+dtype: float64</code></pre>
+</div>
+</div>
+<p>The projection of the Thermo and Bruker spectra on the profile, by operator, shows on which side the difference between operators lies:</p>
+<div id="424c1329" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>proj <span class="op">=</span> <span class="kw">lambda</span> S: S <span class="op">@</span> p_tb <span class="op">/</span> (p_tb <span class="op">@</span> p_tb)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({<span class="st">'Thermo'</span>: proj(snv(th.spectra)), <span class="st">'Bruker'</span>: proj(snv(br.spectra)), <span class="st">'operator'</span>: meta.operator.values}).groupby(<span class="st">'operator'</span>).agg([<span class="st">'mean'</span>, <span class="st">'std'</span>]).<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">Thermo</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">Bruker</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">operator</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">operator 1</th>
+<td>-0.197</td>
+<td>0.080</td>
+<td>-0.514</td>
+<td>0.041</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">operator 2</th>
+<td>-0.123</td>
+<td>0.098</td>
+<td>-0.573</td>
+<td>0.043</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">operator 3</th>
+<td>0.572</td>
+<td>0.070</td>
+<td>-0.537</td>
+<td>0.039</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="strength-by-scan-date" class="level2">
+<h2 class="anchored" data-anchor-id="strength-by-scan-date">Strength by scan date</h2>
+<p>A colleague who measured cassava plants on a similar set-up found that opening the sample chamber from above moved the mirrors, so that the alignment changed between batches. If this happened here, the strength should change between measurement sessions and stay stable within one.</p>
+<p><code>spa_time</code> reads the acquisition time from a Thermo <code>.spa</code> file, stored at byte 296 as seconds since 31 December 1899, the layout that common <code>.spa</code> readers use. The file modification times only record when the files were copied, in October 2026:</p>
+<div id="44b13a4f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> struct, datetime</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spa_time(fn):</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Acquisition time of the Thermo `.spa` file `fn`"</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(fn, <span class="st">'rb'</span>) <span class="im">as</span> f:</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        f.seek(<span class="dv">296</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> datetime.datetime(<span class="dv">1899</span>, <span class="dv">12</span>, <span class="dv">31</span>) <span class="op">+</span> datetime.timedelta(seconds<span class="op">=</span>struct.unpack(<span class="st">'&lt;I'</span>, f.read(<span class="dv">4</span>))[<span class="dv">0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The mean strength of the paired soils by scan day, with the standard deviation within each day:</p>
+<div id="6984a1bb" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>meta[<span class="st">'day'</span>] <span class="op">=</span> [spa_time(spa_files()[i][<span class="dv">0</span>]).date() <span class="cf">for</span> i <span class="kw">in</span> meta.index]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>display(meta.groupby(<span class="st">'operator'</span>).day.agg([<span class="st">'min'</span>, <span class="st">'max'</span>]))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>days <span class="op">=</span> meta.groupby([<span class="st">'operator'</span>, <span class="st">'day'</span>]).strength.agg([<span class="st">'count'</span>, <span class="st">'mean'</span>, <span class="st">'std'</span>])</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>days.<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">min</th>
+<th data-quarto-table-cell-role="th">max</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">operator</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">operator 1</th>
+<td>2023-01-13</td>
+<td>2023-01-30</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">operator 2</th>
+<td>2024-06-27</td>
+<td>2024-11-22</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">operator 3</th>
+<td>2026-02-26</td>
+<td>2026-03-27</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">operator</th>
+<th data-quarto-table-cell-role="th">day</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th rowspan="5" data-quarto-table-cell-role="th" data-valign="top">operator 1</th>
+<th data-quarto-table-cell-role="th">2023-01-13</th>
+<td>1</td>
+<td>0.260</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2023-01-16</th>
+<td>1</td>
+<td>0.362</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2023-01-18</th>
+<td>4</td>
+<td>0.343</td>
+<td>0.080</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2023-01-26</th>
+<td>4</td>
+<td>0.332</td>
+<td>0.112</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2023-01-30</th>
+<td>2</td>
+<td>0.242</td>
+<td>0.010</td>
+</tr>
+<tr class="even">
+<th rowspan="26" data-quarto-table-cell-role="th" data-valign="top">operator 2</th>
+<th data-quarto-table-cell-role="th">2024-06-27</th>
+<td>1</td>
+<td>0.376</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-06-28</th>
+<td>3</td>
+<td>0.269</td>
+<td>0.091</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-07-03</th>
+<td>1</td>
+<td>0.344</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-07-23</th>
+<td>1</td>
+<td>0.426</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-07-24</th>
+<td>2</td>
+<td>0.402</td>
+<td>0.017</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-07-25</th>
+<td>2</td>
+<td>0.307</td>
+<td>0.018</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-08-07</th>
+<td>1</td>
+<td>0.515</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-08-08</th>
+<td>1</td>
+<td>0.512</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-08-09</th>
+<td>3</td>
+<td>0.490</td>
+<td>0.011</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-08-12</th>
+<td>1</td>
+<td>0.449</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-08-20</th>
+<td>1</td>
+<td>0.495</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-08-29</th>
+<td>4</td>
+<td>0.467</td>
+<td>0.064</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-09-02</th>
+<td>1</td>
+<td>0.597</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-09-03</th>
+<td>1</td>
+<td>0.529</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-09-04</th>
+<td>1</td>
+<td>0.632</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-09-09</th>
+<td>2</td>
+<td>0.457</td>
+<td>0.002</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-09-11</th>
+<td>3</td>
+<td>0.467</td>
+<td>0.068</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-09-12</th>
+<td>4</td>
+<td>0.468</td>
+<td>0.069</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-09-16</th>
+<td>1</td>
+<td>0.455</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-10-07</th>
+<td>1</td>
+<td>0.455</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-10-14</th>
+<td>3</td>
+<td>0.464</td>
+<td>0.019</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-10-29</th>
+<td>3</td>
+<td>0.400</td>
+<td>0.060</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-10-30</th>
+<td>1</td>
+<td>0.464</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-11-07</th>
+<td>2</td>
+<td>0.563</td>
+<td>0.052</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-11-20</th>
+<td>2</td>
+<td>0.439</td>
+<td>0.017</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-11-22</th>
+<td>2</td>
+<td>0.507</td>
+<td>0.089</td>
+</tr>
+<tr class="even">
+<th rowspan="18" data-quarto-table-cell-role="th" data-valign="top">operator 3</th>
+<th data-quarto-table-cell-role="th">2026-02-26</th>
+<td>6</td>
+<td>1.092</td>
+<td>0.030</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2026-03-03</th>
+<td>21</td>
+<td>1.103</td>
+<td>0.046</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2026-03-04</th>
+<td>11</td>
+<td>1.091</td>
+<td>0.050</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2026-03-05</th>
+<td>10</td>
+<td>1.122</td>
+<td>0.031</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2026-03-06</th>
+<td>17</td>
+<td>1.096</td>
+<td>0.051</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2026-03-09</th>
+<td>18</td>
+<td>1.092</td>
+<td>0.054</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2026-03-10</th>
+<td>11</td>
+<td>1.070</td>
+<td>0.045</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2026-03-11</th>
+<td>23</td>
+<td>1.076</td>
+<td>0.048</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2026-03-12</th>
+<td>8</td>
+<td>1.045</td>
+<td>0.054</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2026-03-16</th>
+<td>33</td>
+<td>1.100</td>
+<td>0.056</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2026-03-17</th>
+<td>23</td>
+<td>1.112</td>
+<td>0.045</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2026-03-18</th>
+<td>20</td>
+<td>1.172</td>
+<td>0.042</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2026-03-19</th>
+<td>20</td>
+<td>1.164</td>
+<td>0.039</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2026-03-23</th>
+<td>29</td>
+<td>1.114</td>
+<td>0.041</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2026-03-24</th>
+<td>23</td>
+<td>1.154</td>
+<td>0.046</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2026-03-25</th>
+<td>19</td>
+<td>1.113</td>
+<td>0.058</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2026-03-26</th>
+<td>15</td>
+<td>1.085</td>
+<td>0.071</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2026-03-27</th>
+<td>9</td>
+<td>1.072</td>
+<td>0.041</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="15fdeade" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">3.5</span>), layout<span class="op">=</span><span class="st">'constrained'</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o, d <span class="kw">in</span> meta.groupby(<span class="st">'operator'</span>): ax.plot(pd.to_datetime(d.day), d.strength, <span class="st">'.'</span>, ms<span class="op">=</span><span class="dv">4</span>, label<span class="op">=</span>o)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>ax.axhline(s_ring.mean(), c<span class="op">=</span><span class="st">'grey'</span>, ls<span class="op">=</span><span class="st">'--'</span>, lw<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">'IAEA, ring trial, August 2022'</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'strength'</span>)<span class="op">;</span> ax.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="21_iaea_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The 1,389 samples used for modelling come from operator 1’s and operator 2’s folders only:</p>
+<div id="d68ce6fc" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fuku <span class="op">=</span> load_fuku()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> fuku.sample_ids</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>op_f <span class="op">=</span> pd.Series(sample_batches(ids)).<span class="bu">map</span>(ops).values</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>pd.Series(op_f).value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>operator 2    854
+operator 1    535
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p>The 1,389 modelling samples have no Bruker spectra. Their projection on the profile mixes the artefact with differences between soils, but its mean over a month of scans follows the artefact:</p>
+<div id="9504464d" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>month <span class="op">=</span> pd.Series([spa_time(spa_files()[i][<span class="dv">0</span>]).strftime(<span class="st">'%Y-%m'</span>) <span class="cf">for</span> i <span class="kw">in</span> ids])</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({<span class="st">'operator'</span>: op_f, <span class="st">'month'</span>: month, <span class="st">'projection'</span>: proj(snv(fuku.spectra[:, np.isin(shared_wns, pw)]))}).groupby([<span class="st">'operator'</span>, <span class="st">'month'</span>]).projection.agg([<span class="st">'count'</span>, <span class="st">'mean'</span>, <span class="st">'std'</span>]).<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">operator</th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th rowspan="4" data-quarto-table-cell-role="th" data-valign="top">operator 1</th>
+<th data-quarto-table-cell-role="th">2022-12</th>
+<td>143</td>
+<td>-0.238</td>
+<td>0.128</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2023-01</th>
+<td>211</td>
+<td>-0.245</td>
+<td>0.101</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2023-02</th>
+<td>165</td>
+<td>-0.303</td>
+<td>0.089</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2023-03</th>
+<td>16</td>
+<td>-0.313</td>
+<td>0.075</td>
+</tr>
+<tr class="odd">
+<th rowspan="8" data-quarto-table-cell-role="th" data-valign="top">operator 2</th>
+<th data-quarto-table-cell-role="th">2024-06</th>
+<td>27</td>
+<td>-0.340</td>
+<td>0.170</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-07</th>
+<td>57</td>
+<td>-0.284</td>
+<td>0.114</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-08</th>
+<td>202</td>
+<td>-0.132</td>
+<td>0.105</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-09</th>
+<td>189</td>
+<td>-0.152</td>
+<td>0.087</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-10</th>
+<td>64</td>
+<td>-0.151</td>
+<td>0.079</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-11</th>
+<td>129</td>
+<td>-0.147</td>
+<td>0.095</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-12</th>
+<td>113</td>
+<td>-0.180</td>
+<td>0.092</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2025-01</th>
+<td>73</td>
+<td>-0.192</td>
+<td>0.083</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="harm-to-transfer-from-ossl" class="level2">
+<h2 class="anchored" data-anchor-id="harm-to-transfer-from-ossl">Harm to transfer from OSSL</h2>
+<p>The artefact added to 2,000 OSSL validation spectra, after SNV and before the derivative, at the mean strength of each operator. The models are the OSSL Kex and CEC models of <code>03_kex</code> and <code>04_cec</code>, on <code>log1p</code> of the property:</p>
+<div id="088a3b70" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> preprocessings()[<span class="st">'snv_d1'</span>]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>deriv <span class="op">=</span> pipe.named_steps[<span class="st">'deriv'</span>]</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>pad <span class="op">=</span> <span class="kw">lambda</span> A: np.c_[A, A[:, <span class="op">-</span><span class="dv">1</span>:]]</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>p_full <span class="op">=</span> pad(p_tb[<span class="va">None</span>])[<span class="dv">0</span>]</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>om <span class="op">=</span> load_ossl().mir(wmin<span class="op">=</span>shared_wns[<span class="dv">0</span>], wmax<span class="op">=</span>shared_wns[<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> {<span class="st">'Kex'</span>: load_pretrained(<span class="st">'ossl_kex_snv_d1'</span>), <span class="st">'CEC'</span>: load_pretrained(<span class="st">'ossl_cec_snv_d1'</span>)}</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> {<span class="st">'Kex'</span>: <span class="st">'k.ext_usda.a725_cmolc.kg'</span>, <span class="st">'CEC'</span>: <span class="st">'cec_usda.a723_cmolc.kg'</span>}</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>s_op <span class="op">=</span> meta.groupby(<span class="st">'operator'</span>).strength.mean()</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pred(m, S): <span class="cf">return</span> predict(models[m], deriv.transform(S), shared_wns).ravel()</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> {}</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m, c <span class="kw">in</span> cols.items():</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    Xo, yo, _ <span class="op">=</span> om.xy(c)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    yo <span class="op">=</span> np.log1p(yo.ravel())</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    vs <span class="op">=</span> np.random.default_rng(<span class="dv">0</span>).choice(get_splitter(<span class="fl">0.9</span>, <span class="fl">0.1</span>, seed<span class="op">=</span><span class="dv">42</span>)(Xo, yo)[<span class="dv">1</span>], <span class="dv">2000</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    So, yv <span class="op">=</span> snv(Xo[vs]), yo[vs]</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    p0 <span class="op">=</span> pred(m, So)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, a <span class="kw">in</span> {<span class="st">'none'</span>: <span class="dv">0</span>, <span class="op">**</span>s_op}.items():</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> pred(m, So <span class="op">+</span> a <span class="op">*</span> p_full)</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>        rows[m, k] <span class="op">=</span> {<span class="st">'strength'</span>: a, <span class="op">**</span>regression_scores(yv, p), <span class="st">'RMS change'</span>: np.sqrt(((p <span class="op">-</span> p0)<span class="op">**</span><span class="dv">2</span>).mean())}</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(rows).T[[<span class="st">'strength'</span>, <span class="st">'R²'</span>, <span class="st">'r'</span>, <span class="st">'RMS change'</span>]].astype(<span class="bu">float</span>).<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">strength</th>
+<th data-quarto-table-cell-role="th">R²</th>
+<th data-quarto-table-cell-role="th">r</th>
+<th data-quarto-table-cell-role="th">RMS change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th rowspan="4" data-quarto-table-cell-role="th" data-valign="top">Kex</th>
+<th data-quarto-table-cell-role="th">none</th>
+<td>0.000</td>
+<td>0.797</td>
+<td>0.893</td>
+<td>0.000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">operator 1</th>
+<td>0.317</td>
+<td>0.691</td>
+<td>0.840</td>
+<td>0.126</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">operator 2</th>
+<td>0.450</td>
+<td>0.605</td>
+<td>0.791</td>
+<td>0.168</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">operator 3</th>
+<td>1.109</td>
+<td>0.290</td>
+<td>0.581</td>
+<td>0.269</td>
+</tr>
+<tr class="odd">
+<th rowspan="4" data-quarto-table-cell-role="th" data-valign="top">CEC</th>
+<th data-quarto-table-cell-role="th">none</th>
+<td>0.000</td>
+<td>0.962</td>
+<td>0.981</td>
+<td>0.000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">operator 1</th>
+<td>0.317</td>
+<td>0.940</td>
+<td>0.973</td>
+<td>0.139</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">operator 2</th>
+<td>0.450</td>
+<td>0.924</td>
+<td>0.966</td>
+<td>0.181</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">operator 3</th>
+<td>1.109</td>
+<td>0.819</td>
+<td>0.906</td>
+<td>0.336</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="removing-the-artefact" class="level2">
+<h2 class="anchored" data-anchor-id="removing-the-artefact">Removing the artefact</h2>
+<p>First on the ring trial, where the soils are the same on both instruments: the IAEA profile is estimated on half of the soils and removed from the IAEA spectra of the other half. The zero-shot K predictions are compared with the KSSL predictions and with the measured K:</p>
+<div id="17250d3f" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>half <span class="op">=</span> np.random.default_rng(<span class="dv">0</span>).permutation(<span class="bu">len</span>(rt_ids))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>fit_h, test_h <span class="op">=</span> half[:<span class="dv">35</span>], half[<span class="dv">35</span>:]</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>yK <span class="op">=</span> np.log1p(rt[<span class="st">'IAEA_aug2022'</span>].source.reindex(rt_ids)[<span class="st">'potassium_cmolkg'</span>].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>cases <span class="op">=</span> {<span class="st">'KSSL'</span>: snv(Rks), <span class="st">'IAEA'</span>: snv(Ria), <span class="st">'IAEA, artefact removed'</span>: snv(Ria) <span class="op">-</span> D_rt[fit_h].mean(<span class="dv">0</span>)}</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>pk <span class="op">=</span> {k: pred(<span class="st">'Kex'</span>, pad(S))[test_h] <span class="cf">for</span> k, S <span class="kw">in</span> cases.items()}</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>ok <span class="op">=</span> np.isfinite(yK[test_h])</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({k: {<span class="st">'r with K'</span>: np.corrcoef(p[ok], yK[test_h][ok])[<span class="dv">0</span>, <span class="dv">1</span>], <span class="st">'bias'</span>: (p[ok] <span class="op">-</span> yK[test_h][ok]).mean(),</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'RMS from KSSL'</span>: np.sqrt(((p <span class="op">-</span> pk[<span class="st">'KSSL'</span>])<span class="op">**</span><span class="dv">2</span>).mean())} <span class="cf">for</span> k, p <span class="kw">in</span> pk.items()}).T.<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">r with K</th>
+<th data-quarto-table-cell-role="th">bias</th>
+<th data-quarto-table-cell-role="th">RMS from KSSL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">KSSL</th>
+<td>0.763</td>
+<td>0.084</td>
+<td>0.000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">IAEA</th>
+<td>0.620</td>
+<td>0.380</td>
+<td>0.374</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">IAEA, artefact removed</th>
+<td>0.657</td>
+<td>0.135</td>
+<td>0.262</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Then on the Fukushima spectra. On the paired soils, each Thermo spectrum loses its own strength times the profile, which uses the Bruker spectrum of the same soil, so it is the best case. On the 1,389 modelling samples, each spectrum loses the mean strength of its operator:</p>
+<div id="bd3b120b" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>srcP <span class="op">=</span> th.source.reindex(pids)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>yP <span class="op">=</span> {<span class="st">'Kex'</span>: np.log1p(srcP[<span class="st">'soil_ex_K2O'</span>].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>) <span class="op">/</span> mg_k2o_per_cmolc), <span class="st">'CEC'</span>: np.log1p(srcP[<span class="st">'soil_CEC'</span>].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>))}</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>src <span class="op">=</span> fuku.source.reindex(ids)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>yF <span class="op">=</span> {<span class="st">'Kex'</span>: np.log1p(src[<span class="st">'soil_ex_K2O'</span>].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>) <span class="op">/</span> mg_k2o_per_cmolc), <span class="st">'CEC'</span>: np.log1p(src[<span class="st">'soil_CEC'</span>].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>))}</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>SF <span class="op">=</span> snv(fuku.spectra)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> zs(m, S, y):</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    p, ok <span class="op">=</span> pred(m, S), np.isfinite(y)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    sc <span class="op">=</span> regression_scores(y[ok], p[ok])</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">'R²'</span>: sc[<span class="st">'R²'</span>], <span class="st">'r'</span>: sc[<span class="st">'r'</span>], <span class="st">'bias'</span>: (p[ok] <span class="op">-</span> y[ok]).mean()}</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>St, Sb <span class="op">=</span> pad(snv(th.spectra)), pad(snv(br.spectra))</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>paired <span class="op">=</span> {<span class="st">'Thermo'</span>: St, <span class="st">'Thermo, artefact removed'</span>: St <span class="op">-</span> s[:, <span class="va">None</span>] <span class="op">*</span> p_full, <span class="st">'Bruker, the ceiling'</span>: Sb}</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>modelling <span class="op">=</span> {<span class="st">'Thermo'</span>: SF, <span class="st">'Thermo, artefact removed'</span>: SF <span class="op">-</span> s_op.reindex(op_f).to_numpy()[:, <span class="va">None</span>] <span class="op">*</span> p_full}</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>pd.concat({<span class="st">'paired soils'</span>: pd.DataFrame({(m, k): zs(m, S, yP[m]) <span class="cf">for</span> m <span class="kw">in</span> models <span class="cf">for</span> k, S <span class="kw">in</span> paired.items()}).T,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>           <span class="st">'modelling samples'</span>: pd.DataFrame({(m, k): zs(m, S, yF[m]) <span class="cf">for</span> m <span class="kw">in</span> models <span class="cf">for</span> k, S <span class="kw">in</span> modelling.items()}).T}).<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">R²</th>
+<th data-quarto-table-cell-role="th">r</th>
+<th data-quarto-table-cell-role="th">bias</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th rowspan="6" data-quarto-table-cell-role="th" data-valign="top">paired soils</th>
+<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">Kex</th>
+<th data-quarto-table-cell-role="th">Thermo</th>
+<td>-0.920</td>
+<td>0.152</td>
+<td>0.220</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Thermo, artefact removed</th>
+<td>-0.130</td>
+<td>0.240</td>
+<td>0.053</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Bruker, the ceiling</th>
+<td>-0.729</td>
+<td>0.193</td>
+<td>0.122</td>
+</tr>
+<tr class="even">
+<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">CEC</th>
+<th data-quarto-table-cell-role="th">Thermo</th>
+<td>-0.508</td>
+<td>0.527</td>
+<td>0.213</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Thermo, artefact removed</th>
+<td>0.020</td>
+<td>0.497</td>
+<td>0.035</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Bruker, the ceiling</th>
+<td>0.242</td>
+<td>0.656</td>
+<td>0.093</td>
+</tr>
+<tr class="odd">
+<th rowspan="4" data-quarto-table-cell-role="th" data-valign="top">modelling samples</th>
+<th rowspan="2" data-quarto-table-cell-role="th" data-valign="top">Kex</th>
+<th data-quarto-table-cell-role="th">Thermo</th>
+<td>-0.763</td>
+<td>0.154</td>
+<td>0.179</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Thermo, artefact removed</th>
+<td>-0.604</td>
+<td>0.096</td>
+<td>0.115</td>
+</tr>
+<tr class="odd">
+<th rowspan="2" data-quarto-table-cell-role="th" data-valign="top">CEC</th>
+<th data-quarto-table-cell-role="th">Thermo</th>
+<td>-0.673</td>
+<td>0.625</td>
+<td>-0.207</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Thermo, artefact removed</th>
+<td>-0.887</td>
+<td>0.632</td>
+<td>-0.265</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="harm-to-models-trained-on-fukushima" class="level2">
+<h2 class="anchored" data-anchor-id="harm-to-models-trained-on-fukushima">Harm to models trained on Fukushima</h2>
+<p>A shift shared by all scans cannot harm a model trained on those scans. Only its variation between scans can. Ridge regression on the spectra after SNV and the first derivative, and on block 4 of the OSSL Kex and CEC models as in <code>20_grouped_cv</code>, with folds grouped by field. The spectra are used as measured, with the artefact direction projected out, and with each operator’s mean spectrum removed:</p>
+<div id="33852371" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ratio <span class="op">=</span> pd.concat([pd.read_csv(fuku_path()<span class="op">/</span><span class="st">'reference'</span><span class="op">/</span><span class="ss">f'cs137_ratio_</span><span class="sc">{</span>s<span class="sc">}</span><span class="ss">.csv'</span>, usecols<span class="op">=</span>[<span class="st">'ID'</span>, <span class="st">'exCs137_totalCs137'</span>]) <span class="cf">for</span> s <span class="kw">in</span> (<span class="st">'train'</span>, <span class="st">'test'</span>)])</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>ratio <span class="op">=</span> ratio.assign(ID<span class="op">=</span>ratio.ID.astype(<span class="bu">str</span>)).set_index(<span class="st">'ID'</span>)[<span class="st">'exCs137_totalCs137'</span>]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>targets <span class="op">=</span> {<span class="st">'Kex'</span>: yF[<span class="st">'Kex'</span>], <span class="st">'Cs-137 ratio'</span>: ratio.reindex(ids).to_numpy()}</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>fields <span class="op">=</span> src[<span class="st">'field_no'</span>].astype(<span class="bu">str</span>).to_numpy()</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>Xd <span class="op">=</span> deriv.transform(SF)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> deriv.transform(p_full[<span class="va">None</span>])[<span class="dv">0</span>]</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>Xs <span class="op">=</span> {<span class="st">'as measured'</span>: Xd, <span class="st">'artefact direction removed'</span>: epo_project(Xd, (v <span class="op">/</span> np.linalg.norm(v))[:, <span class="va">None</span>]),</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">'operator mean removed'</span>: Xd <span class="op">-</span> pd.DataFrame(Xd).groupby(op_f).transform(<span class="st">'mean'</span>).to_numpy() <span class="op">+</span> Xd.mean(<span class="dv">0</span>)}</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> b4(X): <span class="cf">return</span> np.hstack([layer_features(load_pretrained(n), X)[<span class="st">'block 4'</span>] <span class="cf">for</span> n <span class="kw">in</span> (<span class="st">'ossl_kex_snv_d1'</span>, <span class="st">'ossl_cec_snv_d1'</span>)])</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>feats <span class="op">=</span> {(<span class="st">'spectra'</span>, k): X <span class="cf">for</span> k, X <span class="kw">in</span> Xs.items()} <span class="op">|</span> {(<span class="st">'block 4'</span>, <span class="st">'as measured'</span>): b4(Xd), (<span class="st">'block 4'</span>, <span class="st">'artefact removed'</span>): b4(deriv.transform(modelling[<span class="st">'Thermo, artefact removed'</span>]))}</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>ridge <span class="op">=</span> (make_pipeline(StandardScaler(), Ridge()), {<span class="st">'ridge__alpha'</span>: np.logspace(<span class="op">-</span><span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">15</span>)})</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.linalg <span class="im">import</span> LinAlgWarning</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>warnings.simplefilter(<span class="st">'ignore'</span>, LinAlgWarning)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>oof, res <span class="op">=</span> {}, {}</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t, y <span class="kw">in</span> targets.items():</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    ok <span class="op">=</span> np.isfinite(y)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, X <span class="kw">in</span> feats.items():</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> np.full(<span class="bu">len</span>(y), np.nan)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>        p[ok], _ <span class="op">=</span> oof_preds(<span class="op">*</span>ridge, X[ok], y[ok], group_folds(fields[ok]), fields[ok])</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>        oof[(t, <span class="op">*</span>k)], res[(t, <span class="op">*</span>k)] <span class="op">=</span> p, regression_scores(y[ok], p[ok])</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(res).T[[<span class="st">'R²'</span>, <span class="st">'r'</span>, <span class="st">'RMSE'</span>]].<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">R²</th>
+<th data-quarto-table-cell-role="th">r</th>
+<th data-quarto-table-cell-role="th">RMSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th rowspan="5" data-quarto-table-cell-role="th" data-valign="top">Kex</th>
+<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">spectra</th>
+<th data-quarto-table-cell-role="th">as measured</th>
+<td>0.279</td>
+<td>0.535</td>
+<td>0.198</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">artefact direction removed</th>
+<td>0.272</td>
+<td>0.529</td>
+<td>0.199</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">operator mean removed</th>
+<td>0.265</td>
+<td>0.521</td>
+<td>0.200</td>
+</tr>
+<tr class="even">
+<th rowspan="2" data-quarto-table-cell-role="th" data-valign="top">block 4</th>
+<th data-quarto-table-cell-role="th">as measured</th>
+<td>0.264</td>
+<td>0.518</td>
+<td>0.200</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">artefact removed</th>
+<td>0.266</td>
+<td>0.521</td>
+<td>0.200</td>
+</tr>
+<tr class="even">
+<th rowspan="5" data-quarto-table-cell-role="th" data-valign="top">Cs-137 ratio</th>
+<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">spectra</th>
+<th data-quarto-table-cell-role="th">as measured</th>
+<td>0.524</td>
+<td>0.724</td>
+<td>0.241</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">artefact direction removed</th>
+<td>0.511</td>
+<td>0.715</td>
+<td>0.245</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">operator mean removed</th>
+<td>0.513</td>
+<td>0.717</td>
+<td>0.244</td>
+</tr>
+<tr class="odd">
+<th rowspan="2" data-quarto-table-cell-role="th" data-valign="top">block 4</th>
+<th data-quarto-table-cell-role="th">as measured</th>
+<td>0.571</td>
+<td>0.756</td>
+<td>0.229</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">artefact removed</th>
+<td>0.564</td>
+<td>0.752</td>
+<td>0.231</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The mean out-of-fold residual of ridge on the spectra, by operator:</p>
+<div id="5c1fef14" class="cell" data-fukudata="true" data-rtdata="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({t: pd.Series(targets[t] <span class="op">-</span> oof[t, <span class="st">'spectra'</span>, <span class="st">'as measured'</span>]).groupby(op_f).mean() <span class="cf">for</span> t <span class="kw">in</span> targets}).<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Kex</th>
+<th data-quarto-table-cell-role="th">Cs-137 ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">operator 1</th>
+<td>-0.001</td>
+<td>0.003</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">operator 2</th>
+<td>-0.002</td>
+<td>0.001</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="findings" class="level2">
+<h2 class="anchored" data-anchor-id="findings">Findings</h2>
+<p>The artefact has one shape in both datasets. After SNV, the Thermo spectra of the 376 paired soils are higher than their Bruker spectra at 2800–3700 cm⁻¹ and lower below 1650 cm⁻¹, including the H–O–H bending band. Its profile correlates at 0.87 with the IAEA − KSSL profile of the ring-trial soils, which Woodwell prepared centrally. The Fukushima profile is about twice as large at 2800–3700 cm⁻¹ and four times as large at 650–1300 cm⁻¹.</p>
+<p>Its strength depends on the operator, not on the soil. With the mean over the paired soils set to 1, operator 1’s scans have a strength of 0.32 and operator 2’s 0.45, close to IAEA’s ring-trial scans of August 2022 (0.33). Operator 3’s scans of the 2022 and 2023 samples have 1.11, about three times as much. Within each operator the standard deviation is 0.06 to 0.09. The replicates of one sample barely differ (variance 0.003, against 0.067 between samples), so the cause is not how each replicate was loaded. Soil carbon, CEC and clay barely relate to the strength (Spearman −0.14 to 0.08). The Bruker spectra project on the profile alike for all three operators (−0.51 to −0.57), so the change between operators lies in the Thermo scans. Something in the measurement changed between the earlier sessions and operator 3’s: the procedure, the drying or storage of the samples, or the state of the instrument.</p>
+<p>The strength follows the scan date, by session. Operator 1 scanned in December 2022 to March 2023, operator 2 in June 2024 to January 2025, and operator 3 in February and March 2026, after IAEA’s ring-trial scans of August 2022. On the paired soils, the daily mean strength is 0.24 to 0.36 in January 2023, and 0.27 to 0.43 for operator 2 in June and July 2024. From 7 August 2024 it is 0.40 to 0.63. Operator 3’s daily means are 1.04 to 1.17, with a standard deviation of 0.03 to 0.07 within each day. The modelling spectra show the same step: their mean projection on the profile is −0.24 to −0.31 for operator 1’s months, −0.34 and −0.28 for June and July 2024, and −0.13 to −0.19 from August 2024 to January 2025. So the measurement changed at least twice: between July and August 2024, and between January 2025 and February 2026. Small steps between operator 3’s days fit a set-up that changes from session to session, such as mirrors that move when the chamber is opened, as a colleague found on another instrument. The data cannot tell that cause from others, such as drift of the source or detector, a change of accessory, or a change in how the samples were dried or stored before scanning.</p>
+<p>Operator 3’s samples are not among the 1,389 used for modelling, which are operator 1’s (535) and operator 2’s (854). They make up 316 of the 376 paired soils, so the paired comparisons of <code>05_paired</code> and <code>16_moisture</code> describe mostly the strongest artefact.</p>
+<p>The artefact harms transfer from OSSL, but does not explain the failure. Added to OSSL validation spectra at operator 1’s and operator 2’s strengths, it lowers the R² of the OSSL Kex model from 0.80 to 0.69 and 0.61, and its correlation from 0.89 to 0.84 and 0.79. CEC loses less: R² from 0.96 to 0.94 and 0.92. The zero-shot Kex correlation on the Fukushima spectra is 0.15, far below what the artefact alone leaves.</p>
+<p>Removing the artefact corrects the bias, not the ranking. On the ring trial, removing IAEA’s mean profile, estimated on other soils, cuts the bias of the K predictions from 0.38 to 0.14, and their distance from the KSSL predictions from 0.37 to 0.26. Their correlation with K rises from 0.62 to 0.66, against 0.76 on KSSL. On the paired Fukushima soils, the best case, the bias falls for both properties, but the CEC correlation stays at 0.50, below the Bruker ceiling of 0.66. On the modelling samples, the zero-shot correlation does not improve: 0.15 to 0.10 for Kex, 0.63 for CEC.</p>
+<p>The artefact does not harm models trained on Fukushima. On folds grouped by field, removing the artefact direction or each operator’s mean spectrum changes R² by at most 0.014, for Kex and the Cs-137 ratio, on the spectra and on block 4 of the OSSL models. The residuals average −0.002 to 0.003 for both operators.</p>
+<p>External parameter orthogonalisation with the ring-trial IAEA–KSSL pairs, followed by ridge trained on OSSL, was tried in the kernel, not in this notebook. As in <code>13_epo</code>, ridge trained on OSSL derivative spectra does not transfer zero-shot (R² down to −27), so its results say nothing about the correction.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/franckalbinet\.github\.io\/ossl-fuku-transfer");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/franckalbinet/ossl-fuku-transfer/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
